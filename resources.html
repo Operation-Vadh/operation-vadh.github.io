@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Operation Vadh — Resources</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <meta name="description" content="Operation Vadh — downloadable posters for the mission. Minimal, dark, randomized gallery." />
+  <style>
+    :root{
+      --bg:#000;
+      --surface:#070707;
+      --muted:#bdbdbd;
+      --text:#eaeaea;
+      --accent:#1a0000;
+      --card-border:#111;
+      --repo-link:#2ea44f;
+    }
+    html,body{height:100%;margin:0;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    .wrap{max-width:1000px;margin:0 auto;padding:40px 18px;}
+    header{display:flex;flex-direction:column;gap:8px;align-items:center;margin-bottom:24px}
+    .tag{font-size:12px;color:var(--accent);letter-spacing:.18em}
+    h1{font-size:20px;margin:0;letter-spacing:.12em}
+    p.lead{margin:0;color:var(--muted);font-size:13px;text-align:center;max-width:720px}
+
+    .controls{display:flex;gap:8px;justify-content:center;margin:20px 0 12px;flex-wrap:wrap}
+    .btn{padding:8px 12px;border-radius:8px;border:1px solid var(--card-border);background:transparent;color:var(--text);cursor:pointer;font-weight:600;font-size:13px}
+    .btn.ghost{color:var(--muted)}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px;border-radius:8px;border:1px solid var(--card-border);display:flex;flex-direction:column;gap:8px;align-items:stretch;min-height:380px}
+    .thumb{width:100%;height:300px;object-fit:cover;border-radius:6px;background:#0b0b0b;cursor:pointer}
+    .meta{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .name{font-size:12px;color:var(--muted);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+    .download{font-size:12px;padding:6px 10px;border-radius:6px;background:var(--accent);color:#fff;text-decoration:none}
+
+    .fallback-note{font-size:13px;color:var(--muted);text-align:center;padding:12px;border-radius:6px;background:#050505}
+
+    a.repo-link{color:var(--repo-link);text-decoration:none;font-weight:600}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:999}
+    .viewer{max-width:92%;max-height:92%;background:var(--surface);padding:12px;border-radius:8px;border:1px solid var(--card-border);display:flex;flex-direction:column;align-items:center;gap:10px}
+    .viewer img{max-width:100%;max-height:78vh;border-radius:6px}
+    .viewer .row{display:flex;gap:8px;align-items:center}
+    .small{font-size:13px;color:var(--muted)}
+
+    @media (max-width:520px){
+      .thumb{height:180px}
+      .grid{gap:10px}
+      .card{min-height:auto}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="tag">#OPERATIONVADH</div>
+      <h1>Resources — Posters</h1>
+      <p class="lead">Minimal gallery. Posters are shown in random order each time the page loads. Click a poster to preview and download.</p>
+    </header>
+
+    <div class="controls" aria-hidden="false">
+      <button id="shuffleBtn" class="btn">Shuffle</button>
+      <button id="spotBtn" class="btn ghost">Random Spotlight</button>
+      <a href="/" class="btn ghost" title="Back to home">Back to Home</a>
+    </div>
+
+    <section id="spotlight" style="display:flex;justify-content:center;margin-bottom:12px"></section>
+
+    <main>
+      <section class="grid" id="grid" aria-live="polite" aria-label="Posters gallery">
+        <!-- poster cards injected here -->
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal viewer -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="viewer" role="document">
+      <div style="width:100%;display:flex;justify-content:flex-end">
+        <button id="closeModal" class="btn" style="background:transparent;border-color:var(--card-border)">Close ✕</button>
+      </div>
+      <img id="viewerImg" src="" alt="Poster preview">
+      <div class="row" style="width:100%;justify-content:space-between;align-items:center">
+        <a id="viewerDownload" class="download" href="#" download>Download</a>
+        <div class="small" id="viewerName"></div>
+      </div>
+      <div id="viewerFallback" class="fallback-note" style="display:none; width:100%; text-align:center;">
+        If the preview fails, view all posters in the repository: <a class="repo-link" href="https://github.com/Operation-Vadh/operation-vadh.github.io" target="_blank" rel="noopener">Operation-Vadh repository</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const POSTERS = [
+    "OP_Vadh.png",
+    "OpVadh_Logo.png",
+    "SilenceDeepensDarkness.png",
+    "Whatifitwasyours.png"
+    ];
+
+    const BASE = '/';
+    const REPO_URL = 'https://github.com/Operation-Vadh/operation-vadh.github.io';
+
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+   
+    const grid = document.getElementById('grid');
+    const spotlight = document.getElementById('spotlight');
+
+    function createCard(filename) {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const img = document.createElement('img');
+      img.className = 'thumb';
+      img.alt = filename;
+      img.loading = 'lazy';
+      img.src = BASE + filename;
+
+      // if thumbnail fails, show friendly link to repo
+      img.onerror = function() {
+        // Clear card and show fallback link area
+        card.innerHTML = '';
+        const note = document.createElement('div');
+        note.className = 'fallback-note';
+        note.innerHTML = 'Preview not available. View all posters in the repository: <a class="repo-link" href="' + REPO_URL + '" target="_blank" rel="noopener">Operation-Vadh repository</a>';
+        card.appendChild(note);
+
+        // Add filename and download link beneath
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        const name = document.createElement('div');
+        name.className = 'name';
+        name.textContent = filename;
+        const dl = document.createElement('a');
+        dl.className = 'download';
+        // point to raw GitHub URL for the file (best-effort)
+        const rawUrl = 'https://raw.githubusercontent.com/Operation-Vadh/operation-vadh.github.io/main/' + encodeURIComponent(filename);
+        dl.href = rawUrl;
+        dl.target = '_blank';
+        dl.rel = 'noopener';
+        dl.textContent = 'Open file';
+        meta.appendChild(name);
+        meta.appendChild(dl);
+        card.appendChild(meta);
+      };
+
+      // open viewer on click
+      img.addEventListener('click', () => openViewer(filename));
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+
+      const name = document.createElement('div');
+      name.className = 'name';
+      name.title = filename;
+      name.textContent = filename;
+
+      const dl = document.createElement('a');
+      dl.className = 'download';
+      dl.href = BASE + filename;
+      dl.setAttribute('download', filename);
+      dl.textContent = 'Download';
+
+      meta.appendChild(name);
+      meta.appendChild(dl);
+
+      card.appendChild(img);
+      card.appendChild(meta);
+
+      return card;
+    }
+
+    function renderGrid(list) {
+      grid.innerHTML = '';
+      if (!list || !list.length) {
+        grid.innerHTML = '<div style="grid-column:1/-1;padding:18px;border-radius:8px;border:1px solid var(--card-border);color:var(--muted);text-align:center">No posters are listed. Add poster filenames to the POSTERS array in this page. The repository is available at <a class="repo-link" href="' + REPO_URL + '" target="_blank" rel="noopener">Operation-Vadh</a>.</div>';
+        return;
+      }
+      list.forEach(fn => grid.appendChild(createCard(fn)));
+    }
+
+    function renderSpotlight(list) {
+      spotlight.innerHTML = '';
+      if (!list || !list.length) return;
+      const fn = list[Math.floor(Math.random()*list.length)];
+      const img = document.createElement('img');
+      img.src = BASE + fn;
+      img.alt = fn;
+      img.style.maxWidth = '540px';
+      img.style.width = '100%';
+      img.style.borderRadius = '8px';
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', () => openViewer(fn));
+      // if fails, show link to repo
+      img.onerror = function() {
+        spotlight.innerHTML = '<div class="fallback-note">Spotlight preview not available. View images in the repository: <a class="repo-link" href="' + REPO_URL + '" target="_blank" rel="noopener">Operation-Vadh repository</a></div>';
+      };
+      spotlight.appendChild(img);
+    }
+
+    // ========== MODAL VIEWER ==========
+    const modal = document.getElementById('modal');
+    const viewerImg = document.getElementById('viewerImg');
+    const viewerName = document.getElementById('viewerName');
+    const viewerDownload = document.getElementById('viewerDownload');
+    const viewerFallback = document.getElementById('viewerFallback');
+
+    function openViewer(filename) {
+      viewerFallback.style.display = 'none';
+      viewerImg.style.display = '';
+      viewerImg.src = BASE + filename;
+      viewerName.textContent = filename;
+      viewerDownload.href = BASE + filename;
+      viewerDownload.setAttribute('download', filename);
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+
+      // on error, hide image and show fallback with repo link and raw file link
+      const rawUrl = 'https://raw.githubusercontent.com/Operation-Vadh/operation-vadh.github.io/main/' + encodeURIComponent(filename);
+      viewerImg.onerror = function() {
+        viewerImg.style.display = 'none';
+        viewerFallback.innerHTML = 'Preview not available. Open the file directly: <a class="repo-link" href="' + rawUrl + '" target="_blank" rel="noopener">raw file</a> — or browse the repository: <a class="repo-link" href="' + REPO_URL + '" target="_blank" rel="noopener">Operation-Vadh repository</a>';
+        viewerFallback.style.display = 'block';
+      };
+    }
+
+    function closeViewer() {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      viewerImg.src = '';
+      viewerImg.style.display = '';
+      viewerFallback.style.display = 'none';
+    }
+
+    document.getElementById('closeModal').addEventListener('click', closeViewer);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeViewer(); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeViewer(); });
+
+    // ========== CONTROLS ==========
+    document.getElementById('shuffleBtn').addEventListener('click', () => {
+      const copy = shuffle(POSTERS.slice());
+      renderGrid(copy);
+    });
+
+    document.getElementById('spotBtn').addEventListener('click', () => {
+      renderSpotlight(POSTERS);
+    });
+
+    // ========== INIT ==========
+    (function init() {
+      const randomized = shuffle(POSTERS.slice());
+      renderGrid(randomized);
+      renderSpotlight(randomized);
+    })();
+  </script>
+</body>
+</html>
