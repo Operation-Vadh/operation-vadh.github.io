@@ -19,7 +19,6 @@ Join the movement. Be the force that brings these monsters into the light.
 ### Make no mistake — this is a fight for the future of the internet.  
 And we’re not stopping until they’re gone.
 
----
 
 ### The Mission — No Excuses, No Mercy
 
@@ -29,7 +28,6 @@ That’s how we VADH.
 Every scammer exposed is a victory. Every malicious site taken down is a win.  
 And every person protected… that’s justice.
 
----
 
 ### Are you ready to VADH?
 
