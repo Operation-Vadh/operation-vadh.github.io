@@ -1,0 +1,38 @@
+ url=https://github.com/Operation-Vadh/operation-vadh.github.io/blob/main/.github/ISSUE_TEMPLATE/report.yml
+name: "Report: Wrongdoer / Target"
+about: "Submit a factual, evidence-backed report for review. Do not include unverified accusations or private data of uninvolved parties."
+title: "Report: [Name or handle] — [Platform]"
+labels:
+  - "report"
+  - "triage"
+assignees: []
+body: |
+  **⚠️ Important — Read before submitting**
+  - Provide only factual, verifiable information. Avoid speculation, name-calling, or repeating unverified claims.
+  - Attach evidence (archived links, screenshots with timestamps, or other verifiable material). If you lack evidence the report may be rejected or flagged.
+  - Do not include unrelated private data (personal photos, phone numbers of uninvolved parties, etc.).
+  - Submitting this report does not imply any action will be taken immediately. Maintainers will triage, request clarifications if needed, and may add verified reports to the public watchlist.
+
+  ---
+  ## Report summary
+  - **Name / Handle**:
+  - **Platform(s)** (e.g., Twitter, Telegram, Website):
+  - **Crime / Behavior (factual description)**:
+  - **Evidence (links / archived URLs / screenshots)**:
+  - **Date(s) observed**:
+  - **Criticality**: low / medium / high / critical
+  - **Suggested action** (what do you want us to do? e.g., investigate, report to host, flag publicly):
+  - **Can we publish this report (or parts of it) on the public watchlist?**: yes / no
+  - **Contact (optional)**: (email or handle if you want maintainers to follow up)
+
+  ---
+  ## Optional: Attachments
+  - If attaching images/screenshots, please include a short caption and what the attachment proves (e.g., "screenshot of account X doxxing Y, timestamped 2026-01-10").
+  - Prefer archived links (web.archive.org, archive.is) for transient evidence.
+
+  ---
+  ## Triage notes (for maintainers)
+  - After submission maintainers will:
+    1. Validate evidence and ask follow-up questions if needed.
+    2. If validated, add a sanitized entry to `/data/wrongdoers.json` and/or update the public watchlist.
+    3. If insufficient evidence, label `needs-info` and request clarification.
