@@ -61,9 +61,9 @@
     </header>
 
     <div class="controls" aria-hidden="false">
-      <button id="shuffleBtn" class="btn">Shuffle</button>
       <button id="spotBtn" class="btn ghost">Random Spotlight</button>
       <a href="/" class="btn ghost" title="Back to home">Back to Home</a>
+      <a href="/wrongdoers.html" class="btn ghost" title="Wrongdoers">Wrongdoers</a>
     </div>
 
     <section id="spotlight" style="display:flex;justify-content:center;margin-bottom:12px"></section>
@@ -249,11 +249,6 @@
     window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeViewer(); });
 
     // ========== CONTROLS ==========
-    document.getElementById('shuffleBtn').addEventListener('click', () => {
-      const copy = shuffle(POSTERS.slice());
-      renderGrid(copy);
-    });
-
     document.getElementById('spotBtn').addEventListener('click', () => {
       renderSpotlight(POSTERS);
     });
