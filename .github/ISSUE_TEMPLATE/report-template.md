@@ -10,6 +10,7 @@ assignees: ''
 
 **⚠️ Important — Read before submitting**
   - Provide only factual, verifiable information. Avoid speculation, name-calling, or repeating unverified claims.
+  - Delete this entire instruction block (everything above the line of dashes) so the issue contains only the report content.
   - Attach evidence (archived links, screenshots with timestamps, or other verifiable material). If you lack evidence the report may be rejected or flagged.
   - Do not include unrelated private data (personal photos, phone numbers of uninvolved parties, etc.).
   - Submitting this report does not imply any action will be taken immediately. Maintainers will triage, request clarifications if needed, and may add verified reports to the public watchlist.
