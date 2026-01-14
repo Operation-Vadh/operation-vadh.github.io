@@ -1,0 +1,26 @@
+{
+  "entries": [
+    {
+      "id": 1,
+      "name": "example_bad_actor",
+      "platform": "Twitter",
+      "crime": "Coordinated doxxing and harassment of multiple accounts; sharing of stolen credentials and personal data.",
+      "criticality": "critical",
+      "status": "pending",
+      "reported_at": "2025-12-18T14:32:00Z",
+      "evidence": "https://archive.example.com/snapshot/12345",
+      "notes": "Multiple corroborating screenshots and archived posts provided."
+    },
+    {
+      "id": 2,
+      "name": "fraud_store_123",
+      "platform": "Website / e-commerce",
+      "crime": "Fraudulent sales, payment scams, fake product listings.",
+      "criticality": "high",
+      "status": "terminated",
+      "reported_at": "2025-09-04T09:10:00Z",
+      "evidence": "https://web.archive.org/web/20250904/http://fraudstore.example",
+      "notes": "Domain suspended by registrar; payment processor notified."
+    }
+  ]
+}
