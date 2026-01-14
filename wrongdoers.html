@@ -3,49 +3,57 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Wrongdoers / Targets — Operation Vadh</title>
-  <meta name="description" content="Public list of reported wrongdoers, platforms, crimes, criticality, and status. Contribute via GitHub Issues or email." />
+  <title>Public Watchlist — Operation Vadh</title>
+  <meta name="description" content="Public list of reported wrongdoers with platform, crime, criticality and status. Contribute via GitHub Issues or email." />
   <style>
     :root{
-      --bg:#0f1724; --card:#0b1220; --muted:#9aa4b2; --accent:#4f46e5;
-      --danger:#ef4444; --warning:#f59e0b; --success:#10b981;
-      --glass: rgba(255,255,255,0.03);
-      --radius:12px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --bg:#0b1220; --card:#071426; --muted:#9aa4b2; --accent:#4f46e5;
+      --accent-2:#06b6d4; --danger:#ef4444; --success:#10b981; --glass: rgba(255,255,255,0.03);
+      --radius:12px; --max-width:1200px;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       color-scheme: dark;
     }
     *{box-sizing:border-box}
     body{
-      margin:0; background:linear-gradient(180deg,#071025 0%, #081226 60%); color:#e6eef8;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; padding:32px;
+      margin:0; background:linear-gradient(180deg,#061123 0%, #071226 100%); color:#e6eef8;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; padding:20px;
     }
-    .container{max-width:1200px;margin:0 auto;}
-    header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+    .container{max-width:var(--max-width);margin:0 auto}
+    /* Header / Nav */
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    .brand{display:flex;align-items:center;gap:12px}
     .logo{
-      width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#06b6d4);
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
       display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:20px;
-      box-shadow:0 6px 20px rgba(79,70,229,0.15);
+      box-shadow:0 8px 30px rgba(79,70,229,0.12);
     }
-    h1{margin:0;font-size:20px}
-    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
+    nav{margin-left:auto;display:flex;gap:10px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600}
+    nav a:hover{color:#fff}
+    .cta-report{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:white;padding:10px 14px;border-radius:10px;font-weight:700;border:none;cursor:pointer;
+      box-shadow:0 8px 30px rgba(79,70,229,0.18);
+    }
+    /* Controls */
     .controls{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 22px;align-items:center}
     .search{flex:1;min-width:220px;display:flex;gap:8px}
     input, select, button{
       background:var(--glass);border:1px solid rgba(255,255,255,0.04);color:inherit;padding:10px 12px;border-radius:10px;
       font-size:14px;
     }
-    button.primary{background:linear-gradient(90deg,var(--accent),#06b6d4);border:none;color:white;padding:10px 14px;cursor:pointer}
-    .grid{display:grid;grid-template-columns:1fr 320px;gap:20px}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:8px;color:var(--muted);cursor:pointer}
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:20px}
     .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:16px;border-radius:var(--radius);box-shadow:0 6px 30px rgba(2,6,23,0.6)}
     table{width:100%;border-collapse:collapse;font-size:14px}
     thead th{font-weight:600;text-align:left;padding:10px 8px;color:var(--muted);font-size:12px;position:sticky;top:0;background:transparent}
     tbody tr{border-top:1px solid rgba(255,255,255,0.03)}
     td{padding:12px 8px;vertical-align:top}
-    .name{font-weight:600;color:#fff}
+    .name{font-weight:700;color:#fff}
     .meta{color:var(--muted);font-size:13px}
     .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 8px;border-radius:999px;font-size:12px;font-weight:600}
     .b-low{background:rgba(16,185,129,0.08);color:var(--success)}
-    .b-med{background:rgba(245,158,11,0.08);color:var(--warning)}
+    .b-med{background:rgba(245,158,11,0.08);color:var(--muted)}
     .b-high{background:rgba(239,68,68,0.08);color:var(--danger)}
     .b-critical{background:linear-gradient(90deg,#ef4444 0%,#f97316 100%);color:white}
     .status-pending{background:rgba(255,255,255,0.03);color:var(--muted);border-radius:8px;padding:6px 8px;font-weight:600}
@@ -56,30 +64,61 @@
     a.link{color:var(--accent);text-decoration:none;font-weight:600}
     .footer-note{margin-top:12px;color:var(--muted);font-size:13px}
     .row{display:flex;gap:8px;align-items:center}
-    .actions{display:flex;gap:8px}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:8px;color:var(--muted);cursor:pointer}
     .empty{padding:28px;text-align:center;color:var(--muted)}
     .pagination{display:flex;gap:8px;align-items:center;justify-content:center;padding:12px}
+    /* Floating report action (mobile & desktop) */
+    .fab{
+      position:fixed;right:18px;bottom:18px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      color:white;border:none;width:56px;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;
+      cursor:pointer;box-shadow:0 14px 40px rgba(6,182,212,0.12);z-index:60;
+    }
+    .fab-label{position:fixed;right:86px;bottom:24px;background:rgba(0,0,0,0.48);padding:8px 12px;border-radius:999px;color:white;font-weight:700;font-size:14px;z-index:60;display:none}
+    /* Card view for narrow screens */
+    .cards-list{display:none;gap:12px;flex-direction:column}
+    .card-item{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .card-item h4{margin:0 0 6px}
+    .card-item .meta{margin-bottom:8px}
+    /* Responsive */
     @media (max-width:980px){
       .grid{grid-template-columns:1fr; }
-      header{flex-direction:column;align-items:flex-start}
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+      nav{margin-left:0}
+      .fab-label{display:block}
     }
+    @media (max-width:720px){
+      thead{display:none}
+      table, tbody, tr, td{display:block;width:100%}
+      td{padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.02)}
+      .cards-list{display:flex}
+      .card{padding:12px}
+      .pagination{flex-direction:column;gap:6px}
+    }
+    a.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
-      <div class="logo" aria-hidden>OV</div>
-      <div>
-        <h1>Public Watchlist — Wrongdoers & Targets</h1>
-        <p class="lead">Community-submitted reports: platform, crime description, criticality, and status. Use responsibly — follow law & ethics.</p>
+    <header role="banner" aria-label="Top header">
+      <div class="brand">
+        <div class="logo" aria-hidden>OV</div>
+        <div>
+          <h1 style="margin:0;font-size:18px">Operation Vadh</h1>
+          <div style="color:var(--muted);font-size:13px">Public Watchlist — responsible community reporting</div>
+        </div>
       </div>
+
+      <nav role="navigation" aria-label="Main navigation">
+        <a href="/index.html">Home</a>
+        <a href="/resources.html">Resources</a>
+        <a href="/wrongdoers.html" style="background:rgba(255,255,255,0.02);border-radius:8px;padding:8px 10px">Watchlist</a>
+        <a class="cta-report" id="reportPrimary" href="https://github.com/Operation-Vadh/operation-vadh.github.io/issues/new" target="_blank" rel="noopener noreferrer">Report</a>
+      </nav>
     </header>
 
-    <div class="controls">
-      <div class="search">
-        <input id="q" type="search" placeholder="Search by name, platform, or crime (press Enter)" aria-label="Search wrongdoers" />
-        <button id="searchBtn" class="btn-ghost">Search</button>
+    <div class="controls" role="region" aria-label="Search and filters">
+      <div class="search" style="min-width:160px">
+        <input id="q" type="search" placeholder="Search by name, platform, or crime" aria-label="Search wrongdoers" />
+        <button id="searchBtn" class="btn-ghost" aria-label="Search">Search</button>
       </div>
 
       <select id="filterPlatform" aria-label="Filter by platform">
@@ -101,62 +140,65 @@
       </select>
 
       <div style="margin-left:auto" class="row">
-        <button id="refresh" class="btn-ghost">Refresh</button>
-        <a class="primary" id="newIssue" href="https://github.com/Operation-Vadh/operation-vadh.github.io/issues/new" target="_blank" rel="noopener noreferrer" style="text-decoration:none;margin-left:6px">Open Issue</a>
+        <button id="refresh" class="btn-ghost" aria-label="Refresh list">Refresh</button>
+        <a id="newIssue" class="cta-report" href="https://github.com/Operation-Vadh/operation-vadh.github.io/issues/new" target="_blank" rel="noopener noreferrer" style="margin-left:8px">Open Issue</a>
       </div>
     </div>
 
     <div class="grid">
-      <div class="card">
-        <div id="listArea" aria-live="polite">
-          <table id="listTable" role="table" aria-label="Wrongdoers list">
-            <thead>
-              <tr>
-                <th style="width:34%">Subject</th>
-                <th style="width:24%">Platform / Crime</th>
-                <th style="width:18%">Criticality</th>
-                <th style="width:14%">Status</th>
-                <th style="width:10%">Reported</th>
-              </tr>
-            </thead>
-            <tbody id="listBody">
-              <tr><td colspan="5" class="empty">Loading…</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <!-- Main list -->
+      <main class="card" aria-live="polite" aria-label="Reported wrongdoers list">
+        <!-- Table (desktop) -->
+        <table id="listTable" role="table" aria-label="Wrongdoers table">
+          <thead>
+            <tr>
+              <th style="width:36%">Subject</th>
+              <th style="width:26%">Platform / Crime</th>
+              <th style="width:18%">Criticality</th>
+              <th style="width:12%">Status</th>
+              <th style="width:8%">Reported</th>
+            </tr>
+          </thead>
+          <tbody id="listBody">
+            <tr><td colspan="5" class="empty">Loading…</td></tr>
+          </tbody>
+        </table>
+
+        <!-- Cards (mobile) -->
+        <div id="cards" class="cards-list" aria-hidden="true"></div>
 
         <div id="pagi" class="pagination" style="margin-top:12px"></div>
-      </div>
+      </main>
 
-      <aside class="card sidebar">
+      <!-- Sidebar -->
+      <aside class="card sidebar" aria-label="Contribute and guidelines">
         <h3>Contribute / Update</h3>
         <div class="contribute">
           <div class="small">
-            Two ways to submit updates:
+            Two fast ways to submit:
             <ol style="padding-left:16px;margin:8px 0 0">
-              <li>Open a GitHub Issue (preferred) — use the issue template (title + structured body).</li>
-              <li>Email <strong>opvadh1@proton.me</strong> with subject "Report: [Name] — [Platform]" and include evidence links and timestamped details.</li>
+              <li><strong>Open a GitHub Issue (preferred)</strong> — structured template available when you open a new issue.</li>
+              <li>Email <strong><a class="link" href="mailto:opvadh1@proton.me">opvadh1@proton.me</a></strong> with subject "Report: [Name] — [Platform]". Include evidence links and dates.</li>
             </ol>
           </div>
 
-          <div>
-            <strong>Issue template (copy into new issue body):</strong>
-            <pre style="background:#071426;padding:8px;border-radius:8px;color:var(--muted);font-size:13px">
+          <div style="margin-top:8px">
+            <strong>Quick issue template (paste into new issue)</strong>
+            <pre style="background:#071426;padding:8px;border-radius:8px;color:var(--muted);font-size:13px;overflow:auto">
 Title: Report: [Name or handle] — [Platform]
 
 - Name/Handle:
 - Platform(s):
-- Crime / Behavior (clear, factual):
+- Crime / Behavior (factual):
 - Evidence (links / screenshots):
 - Date(s) observed:
 - Criticality: low / medium / high / critical
-- Suggested action / request:
 - Contact (optional):
             </pre>
           </div>
 
           <div class="footer-note">
-            For maintainers: preferred data format is JSON at <code>/data/wrongdoers.json</code>. Contributions via pull request updating that file with well-sourced evidence are fastest to merge.
+            Preferred data format for maintainers: JSON at <code>/data/wrongdoers.json</code>. PRs that update that file with well-sourced evidence are the fastest way to add validated entries.
           </div>
 
           <div style="margin-top:10px;display:flex;gap:8px">
@@ -167,38 +209,46 @@ Title: Report: [Name or handle] — [Platform]
 
         <h3 style="margin-top:18px">Guiding principles</h3>
         <ul class="small" style="padding-left:16px;margin:8px 0 0">
-          <li>Only publish verifiable, lawful reports.</li>
+          <li>Publish only verifiable, lawful reports.</li>
           <li>Respect privacy of unrelated parties.</li>
-          <li>Provide evidence links where possible.</li>
-          <li>We may remove or flag reports that lack corroboration.</li>
+          <li>Provide archived evidence where possible.</li>
+          <li>Maintainers may remove or flag reports lacking corroboration.</li>
         </ul>
       </aside>
     </div>
 
     <footer style="margin-top:18px;color:var(--muted);font-size:13px">
-      Note: This list is for community awareness and lawful action. Operation Vadh does not encourage harassment or illegal conduct. Use reports responsibly.
+      Note: This list is for lawful, ethical action. Operation Vadh does not endorse harassment or illegal conduct.
     </footer>
   </div>
 
+  <!-- Floating report button -->
+  <button id="fab" class="fab" title="Report (GitHub)" aria-label="Open report issue">＋</button>
+  <div class="fab-label" id="fabLabel">Report</div>
+
   <script>
     // Config
-    const DATA_URL = '/data/wrongdoers.json'; // relative path to data file in repo
-    const PAGE_SIZE = 12;
+    const DATA_URL = '/data/wrongdoers.json';
+    const PAGE_SIZE = 10;
 
     // State
-    let data = [];
-    let filtered = [];
-    let currentPage = 1;
+    let data = [], filtered = [], currentPage = 1;
 
-    const elements = {
+    // Elements
+    const el = {
       q: document.getElementById('q'),
       searchBtn: document.getElementById('searchBtn'),
       filterPlatform: document.getElementById('filterPlatform'),
       filterCriticality: document.getElementById('filterCriticality'),
       filterStatus: document.getElementById('filterStatus'),
       listBody: document.getElementById('listBody'),
+      cards: document.getElementById('cards'),
       pagi: document.getElementById('pagi'),
       refresh: document.getElementById('refresh'),
+      newIssue: document.getElementById('newIssue'),
+      fab: document.getElementById('fab'),
+      fabLabel: document.getElementById('fabLabel'),
+      reportPrimary: document.getElementById('reportPrimary')
     };
 
     // Utilities
@@ -207,29 +257,28 @@ Title: Report: [Name or handle] — [Platform]
       const d = new Date(iso);
       return isNaN(d) ? iso : d.toLocaleDateString();
     }
-
     function criticalBadge(level){
-      const map = {
-        low: 'b-low', medium: 'b-med', high: 'b-high', critical: 'b-critical'
-      };
+      const map = { low: 'b-low', medium: 'b-med', high: 'b-high', critical: 'b-critical' };
       const cls = map[(level||'').toLowerCase()] || 'b-low';
       return `<span class="badge ${cls}">${(level||'Unknown').toUpperCase()}</span>`;
     }
-
     function statusLabel(s){
       if(!s) return '<span class="status-pending">Unknown</span>';
       if(s.toLowerCase()==='terminated') return '<span class="status-terminated">Terminated</span>';
       return '<span class="status-pending">Pending</span>';
     }
+    function escapeHtml(s){ return (s===undefined || s===null) ? '' : String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+    function escapeAttr(s){ return escapeHtml(s).replace(/"/g,'&quot;') }
 
-    // Fetch and prepare
+    // Fetch
     async function loadData(){
+      el.listBody.innerHTML = '<tr><td colspan="5" class="empty">Loading…</td></tr>';
+      el.cards.innerHTML = '';
       try{
         const res = await fetch(DATA_URL + '?v=' + Date.now(), {cache:'no-store'});
         if(!res.ok) throw new Error('Failed to load data');
         const json = await res.json();
         data = Array.isArray(json) ? json : (json.entries || []);
-        // Normalize keys (example)
         data = data.map((x,i) => ({
           id: x.id || i+1,
           name: x.name || x.handle || 'Unknown',
@@ -244,22 +293,23 @@ Title: Report: [Name or handle] — [Platform]
         populatePlatformFilter();
         applyFilters();
       }catch(err){
-        elements.listBody.innerHTML = '<tr><td colspan="5" class="empty">Failed to load data. Please check /data/wrongdoers.json</td></tr>';
+        el.listBody.innerHTML = '<tr><td colspan="5" class="empty">Failed to load data. Please check /data/wrongdoers.json</td></tr>';
+        el.cards.innerHTML = '<div class="empty">Failed to load data.</div>';
         console.error(err);
       }
     }
 
     function populatePlatformFilter(){
       const set = new Set(data.map(d => d.platform).filter(Boolean));
-      elements.filterPlatform.innerHTML = '<option value="">All platforms</option>' + Array.from(set).map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
+      el.filterPlatform.innerHTML = '<option value="">All platforms</option>' + Array.from(set).map(s => `<option value="${escapeAttr(s)}">${escapeHtml(s)}</option>`).join('');
     }
 
-    // Filtering / Searching
+    // Filters
     function applyFilters(){
-      const q = elements.q.value.trim().toLowerCase();
-      const platform = elements.filterPlatform.value;
-      const crit = elements.filterCriticality.value;
-      const status = elements.filterStatus.value;
+      const q = el.q.value.trim().toLowerCase();
+      const platform = el.filterPlatform.value;
+      const crit = el.filterCriticality.value;
+      const status = el.filterStatus.value;
 
       filtered = data.filter(item => {
         if(platform && item.platform !== platform) return false;
@@ -272,7 +322,6 @@ Title: Report: [Name or handle] — [Platform]
         return true;
       });
 
-      // Sort: by reported_at desc (most recent first) if present
       filtered.sort((a,b) => {
         const da = a.reported_at ? new Date(a.reported_at).getTime() : 0;
         const db = b.reported_at ? new Date(b.reported_at).getTime() : 0;
@@ -280,65 +329,97 @@ Title: Report: [Name or handle] — [Platform]
       });
 
       currentPage = 1;
-      renderList();
+      render();
     }
 
-    // Rendering
-    function renderList(){
+    // Render (table + cards)
+    function render(){
+      renderTable();
+      renderCards();
+      renderPagination();
+    }
+
+    function renderTable(){
       const start = (currentPage-1)*PAGE_SIZE;
       const pageItems = filtered.slice(start, start+PAGE_SIZE);
-
       if(!pageItems.length){
-        elements.listBody.innerHTML = '<tr><td colspan="5" class="empty">No results found.</td></tr>';
-        elements.pagi.innerHTML = '';
+        el.listBody.innerHTML = '<tr><td colspan="5" class="empty">No results found.</td></tr>';
         return;
       }
-
-      elements.listBody.innerHTML = pageItems.map(item => {
+      el.listBody.innerHTML = pageItems.map(item => {
         const name = escapeHtml(item.name);
         const platform = escapeHtml(item.platform);
         const crime = escapeHtml(item.crime).slice(0,220) + (item.crime && item.crime.length>220 ? '…' : '');
         const evidence = item.evidence ? `<div class="small"><a class="link" href="${escapeAttr(item.evidence)}" target="_blank" rel="noopener noreferrer">evidence</a></div>` : '';
         return `<tr>
           <td><div class="name">${name}</div><div class="meta">${escapeHtml(item.notes || '')}</div></td>
-          <td><div class="meta">${platform}</div><div style="margin-top:6px">${escapeHtml(crime)}</div>${evidence}</td>
+          <td><div class="meta">${platform}</div><div style="margin-top:6px">${crime}</div>${evidence}</td>
           <td>${criticalBadge(item.criticality)}</td>
           <td>${statusLabel(item.status)}</td>
           <td class="small">${formatDate(item.reported_at)}</td>
         </tr>`;
       }).join('');
+    }
 
-      renderPagination();
+    function renderCards(){
+      // cards view shows entire filtered list (or page-limited to avoid long mobile pages)
+      const start = (currentPage-1)*PAGE_SIZE;
+      const items = filtered.slice(start, start+PAGE_SIZE);
+      if(!items.length){
+        el.cards.innerHTML = '<div class="empty">No results found.</div>';
+        return;
+      }
+      el.cards.innerHTML = items.map(item => {
+        const evidenceLink = item.evidence ? `<div style="margin-top:8px"><a class="link" href="${escapeAttr(item.evidence)}" target="_blank" rel="noopener noreferrer">View evidence</a></div>` : '';
+        return `<article class="card-item" role="article" aria-label="${escapeAttr(item.name)} on ${escapeAttr(item.platform)}">
+          <h4 class="name">${escapeHtml(item.name)}</h4>
+          <div class="meta">${escapeHtml(item.platform)} · ${formatDate(item.reported_at)}</div>
+          <div style="margin-top:8px">${escapeHtml(item.crime)}</div>
+          <div style="margin-top:10px;display:flex;gap:10px;align-items:center">
+            <div>${criticalBadge(item.criticality)}</div>
+            <div>${statusLabel(item.status)}</div>
+          </div>
+          ${evidenceLink}
+        </article>`;
+      }).join('');
+      // set aria-hidden for table when narrow (handled by CSS) but keep both rendered
     }
 
     function renderPagination(){
       const total = filtered.length;
       const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
       const parts = [];
-      if(currentPage>1) parts.push(`<button class="btn-ghost" data-page="${currentPage-1}">Prev</button>`);
+      if(currentPage>1) parts.push(`<button class="btn-ghost" data-page="${currentPage-1}" aria-label="Previous page">Prev</button>`);
       parts.push(`<div style="color:var(--muted)">${total} result(s) — page ${currentPage} of ${pages}</div>`);
-      if(currentPage<pages) parts.push(`<button class="btn-ghost" data-page="${currentPage+1}">Next</button>`);
-      elements.pagi.innerHTML = parts.join('');
-      elements.pagi.querySelectorAll('button[data-page]').forEach(btn => {
-        btn.addEventListener('click', (e)=> {
+      if(currentPage<pages) parts.push(`<button class="btn-ghost" data-page="${currentPage+1}" aria-label="Next page">Next</button>`);
+      el.pagi.innerHTML = parts.join('');
+      el.pagi.querySelectorAll('button[data-page]').forEach(btn => {
+        btn.addEventListener('click', ()=> {
           currentPage = Number(btn.dataset.page);
-          renderList();
+          render();
           window.scrollTo({top:0,behavior:'smooth'});
         });
       });
     }
 
-    // Helpers
-    function escapeHtml(s){ return (s===undefined || s===null) ? '' : String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-    function escapeAttr(s){ return escapeHtml(s).replace(/"/g,'&quot;') }
-
     // Events
-    elements.searchBtn.addEventListener('click', applyFilters);
-    elements.refresh.addEventListener('click', loadData);
-    elements.q.addEventListener('keydown', (e)=> { if(e.key==='Enter'){ applyFilters(); }});
-    [elements.filterPlatform, elements.filterCriticality, elements.filterStatus].forEach(el => el.addEventListener('change', applyFilters));
+    el.searchBtn.addEventListener('click', applyFilters);
+    el.refresh.addEventListener('click', loadData);
+    el.q.addEventListener('keydown', (e)=> { if(e.key==='Enter'){ applyFilters(); }});
+    [el.filterPlatform, el.filterCriticality, el.filterStatus].forEach(elm => elm.addEventListener('change', applyFilters));
 
-    // Initial
+    // Floating action: open issue (primary) on click
+    el.fab.addEventListener('click', ()=> {
+      window.open('https://github.com/Operation-Vadh/operation-vadh.github.io/issues/new', '_blank', 'noopener');
+    });
+    // show/hide fab label on hover
+    el.fab.addEventListener('mouseenter', ()=> el.fabLabel.style.display='block');
+    el.fab.addEventListener('mouseleave', ()=> el.fabLabel.style.display='none');
+
+    // Make sure primary report button opens GitHub issues too (already an anchor)
+    el.reportPrimary.addEventListener('keydown', (e)=>{ if(e.key==='Enter') el.reportPrimary.click(); });
+
+    // Initial load
     loadData();
   </script>
 </body>
