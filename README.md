@@ -40,3 +40,8 @@ But we’re coming for them.
 (https://operation-vadh.github.io)
 
 #OperationVadh
+
+Important Notice:
+This program will **end** in **January 2026**. There is a possibility that this account may be **terminated** or the website may be removed after that date.
+Therefore, everyone is encouraged to take the **initiative**—do not wait for any announcements.
+Start your own efforts under the same name, create new resources, and build your own network. Keep the spirit alive and continue **independently**!
