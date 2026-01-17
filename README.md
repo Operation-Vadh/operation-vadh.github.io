@@ -41,7 +41,5 @@ But we’re coming for them.
 
 #OperationVadh
 
-Important Notice:
-This program will **end** in **January 2026**. There is a possibility that this account may be **terminated** or the website may be removed after that date.
-Therefore, everyone is encouraged to take the **initiative**—do not wait for any announcements.
+**Please note:** Due to legal reasons, this email or the website may be temporarily unavailable at times. But don’t let that stop you from taking action. **Each year**, you and your friends revive OperationVadh.
 Start your own efforts under the same name, create new resources, and build your own network. Keep the spirit alive and continue **independently**!
