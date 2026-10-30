@@ -39,6 +39,6 @@ But we're coming for them.
 
 (https://operation-vadh.github.io)
 
-#OperationVadh
+#OperationVadh #OSINTforGood #OnlineSafety #Cybersecurity #OSINT #ScamAwareness
 
 **Please note:** Due to legal reasons, this email or the website may be temporarily unavailable at times. But don't let that stop you from taking action. **Each year**, you and your friends revive Operation Vadh, start your own efforts under the same name, create new resources, and build your own network. Keep the spirit alive and continue **independently**!
