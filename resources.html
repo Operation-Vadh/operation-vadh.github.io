@@ -17,32 +17,38 @@
       --repo-link:#2ea44f;
     }
     html,body{height:100%;margin:0;font-family:'JetBrains Mono',monospace;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
-    .wrap{max-width:1000px;margin:0 auto;padding:40px 18px;}
+    .wrap{max-width:1000px;margin:0 auto;padding:40px 18px 56px}
     header{display:flex;flex-direction:column;gap:8px;align-items:center;margin-bottom:24px}
     .tag{font-size:12px;color:var(--accent);letter-spacing:.18em}
     h1{font-size:20px;margin:0;letter-spacing:.12em}
     p.lead{margin:0;color:var(--muted);font-size:13px;text-align:center;max-width:720px}
 
     .controls{display:flex;gap:8px;justify-content:center;margin:20px 0 12px;flex-wrap:wrap}
-    .btn{padding:8px 12px;border-radius:8px;border:1px solid var(--card-border);background:transparent;color:var(--text);cursor:pointer;font-weight:600;font-size:13px;text-decoration:none;display:inline-block}
+    .btn{padding:8px 12px;border-radius:8px;border:1px solid var(--card-border);background:transparent;color:var(--text);cursor:pointer;font-weight:600;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;line-height:1.2;transition:border-color .2s ease, transform .2s ease, background .2s ease}
+    .btn:hover,.btn:focus-visible{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.02);transform:translateY(-1px)}
     .btn.ghost{color:var(--muted)}
 
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px;border-radius:8px;border:1px solid var(--card-border);display:flex;flex-direction:column;gap:8px;align-items:stretch;min-height:380px}
-    .thumb{width:100%;height:300px;object-fit:cover;border-radius:6px;background:#0b0b0b;cursor:pointer}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:8px;border-radius:8px;border:1px solid var(--card-border);display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:transform .2s ease, border-color .2s ease}
+    .card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.18)}
+    .thumb{width:100%;height:300px;object-fit:cover;border-radius:6px;background:#0b0b0b}
     .meta{display:flex;justify-content:space-between;align-items:center;gap:8px}
     .name{font-size:12px;color:var(--muted);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
     .download{font-size:12px;padding:6px 10px;border-radius:6px;background:var(--accent);color:#fff;text-decoration:none}
 
     .fallback-note{font-size:13px;color:var(--muted);text-align:center;padding:12px;border-radius:6px;background:#050505}
-
     a.repo-link{color:var(--repo-link);text-decoration:none;font-weight:600}
+
+    .spotlight-wrap{display:flex;justify-content:center;margin-bottom:12px}
+    .spotlight{max-width:760px;width:100%;display:flex;align-items:center;justify-content:center;padding:10px;border-radius:10px;border:1px solid var(--card-border);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));}
+    .spotlight img{width:100%;max-height:420px;object-fit:contain;border-radius:8px;background:#0b0b0b}
 
     .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.7);z-index:999}
     .viewer{max-width:92%;max-height:92%;background:var(--surface);padding:12px;border-radius:8px;border:1px solid var(--card-border);display:flex;flex-direction:column;align-items:center;gap:10px}
     .viewer img{max-width:100%;max-height:78vh;border-radius:6px}
-    .viewer .row{display:flex;gap:8px;align-items:center}
+    .viewer .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
     .small{font-size:13px;color:var(--muted)}
+    .close-btn{background:transparent;border:1px solid var(--card-border);color:var(--text);border-radius:8px;padding:6px 10px;cursor:pointer}
 
     @media (max-width:520px){
       .thumb{height:180px}
@@ -60,15 +66,121 @@
     </header>
 
     <div class="controls" aria-hidden="false">
-      <button id="spotBtn" class="btn ghost">Random spotlight</button>
+      <button id="spotBtn" class="btn ghost" type="button">Random spotlight</button>
       <a href="/badge-generator.html" class="btn ghost" title="Create your support badge">Create badge</a>
       <a href="/" class="btn ghost" title="Back to home">Back to home</a>
     </div>
 
-    <section id="spotlight" style="display:flex;justify-content:center;margin-bottom:12px"></section>
-
-    <main>
-    </main>
+    <section id="spotlight" class="spotlight-wrap" aria-live="polite"></section>
+    <main id="gallery" class="grid"></main>
   </div>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="viewer" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <img id="modalImage" alt="Poster preview" />
+      <div class="row">
+        <span id="modalTitle" class="small"></span>
+        <a id="modalDownload" class="download" href="#" download>Download</a>
+        <button id="closeModal" class="close-btn" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const posters = [
+      'Fightback.png',
+      'JoinTheClan.png',
+      'OP_Vadh.png',
+      'OpVadh_Logo.png',
+      'OpVadh_Tweet.png',
+      'SilenceDeepensDarkness.png',
+      'StrikeFirst.png',
+      'ToErr.png',
+      'Warrior.png',
+      'Whatifitwasyours.png'
+    ];
+
+    const gallery = document.getElementById('gallery');
+    const spotlight = document.getElementById('spotlight');
+    const modal = document.getElementById('modal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDownload = document.getElementById('modalDownload');
+    const closeModal = document.getElementById('closeModal');
+
+    function titleFromFile(file) {
+      return file
+        .replace(/\.[^.]+$/, '')
+        .replace(/[_-]+/g, ' ')
+        .replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    function renderGallery() {
+      gallery.innerHTML = posters.map((file, index) => {
+        const title = titleFromFile(file);
+        const src = '/' + file;
+        return `
+          <article class="card" data-index="${index}" tabindex="0" aria-label="Open poster ${title}">
+            <img class="thumb" src="${src}" alt="${title}" loading="lazy" />
+            <div class="meta">
+              <div class="name">${title}</div>
+              <a class="download" href="${src}" download="${file}" target="_blank" rel="noreferrer">Download</a>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      gallery.querySelectorAll('.card').forEach((card) => {
+        const open = () => {
+          const index = Number(card.dataset.index);
+          const file = posters[index];
+          const title = titleFromFile(file);
+          const src = '/' + file;
+          modalImage.src = src;
+          modalImage.alt = title;
+          modalTitle.textContent = title;
+          modalDownload.href = src;
+          modalDownload.setAttribute('download', file);
+          modal.style.display = 'flex';
+          modal.setAttribute('aria-hidden', 'false');
+        };
+
+        card.addEventListener('click', open);
+        card.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            open();
+          }
+        });
+      });
+    }
+
+    function randomSpotlight() {
+      const file = posters[Math.floor(Math.random() * posters.length)];
+      const title = titleFromFile(file);
+      const src = '/' + file;
+      spotlight.innerHTML = `
+        <div class="spotlight">
+          <img src="${src}" alt="${title} spotlight" />
+        </div>
+      `;
+    }
+
+    document.getElementById('spotBtn').addEventListener('click', randomSpotlight);
+    closeModal.addEventListener('click', () => {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    });
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    renderGallery();
+    randomSpotlight();
+  </script>
 </body>
 </html>

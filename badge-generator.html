@@ -60,6 +60,37 @@
         text-transform: uppercase;
       }
 
+      .utility-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 18px auto 0;
+      }
+
+      .utility-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 140px;
+        padding: 10px 16px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,0.02);
+        color: var(--text);
+        text-decoration: none;
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+      }
+
+      .utility-links a:hover,
+      .utility-links a:focus-visible {
+        border-color: rgba(255,255,255,0.2);
+        background: rgba(182, 26, 26, 0.09);
+        transform: translateY(-1px);
+      }
+
       h1 {
         margin: 12px 0 8px;
         font-size: clamp(2rem, 4vw, 3.4rem);
@@ -220,6 +251,11 @@
         <p class="subtitle">Dark. Aggressive. Shareable. Built for the cause.</p>
       </div>
 
+      <nav class="utility-links" aria-label="Breadcrumb and quick links">
+        <a href="/">Back Home</a>
+        <a href="/resources.html">Resources</a>
+      </nav>
+
       <main class="generator-layout">
         <section class="panel form-panel" aria-label="Certificate form">
           <h2 class="section-title">Certificate Details</h2>
@@ -316,32 +352,44 @@
       }
 
       function drawQrCode() {
-        const qrX = 688;
-        const qrY = 840;
-        const qrSize = 170;
+        const boxX = 700;
+        const boxY = 810;
+        const boxW = 240;
+        const boxH = 210;
+        const innerPad = 16;
 
-        roundedRect(qrX - 18, qrY - 18, qrSize + 36, qrSize + 70, 8);
+        roundedRect(boxX, boxY, boxW, boxH, 12);
         ctx.fillStyle = '#121212';
         ctx.fill();
-        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.strokeStyle = 'rgba(255,255,255,0.12)';
         ctx.lineWidth = 2;
         ctx.stroke();
 
         ctx.fillStyle = '#b61a1a';
-        ctx.fillRect(qrX, qrY - 2, qrSize, 4);
+        ctx.fillRect(boxX + 2, boxY + 2, boxW - 4, 6);
 
         ctx.fillStyle = '#f3eee9';
         ctx.font = '700 16px "JetBrains Mono", monospace';
         ctx.textAlign = 'left';
-        ctx.fillText('SCAN TO VERIFY', qrX + 8, qrY - 18);
+        ctx.fillText('SCAN TO VERIFY', boxX + 18, boxY + 34);
+
+        const qrX = boxX + 28;
+        const qrY = boxY + 56;
+        const qrSize = boxW - (innerPad * 2 + 14);
+
+        ctx.fillStyle = '#0d0d0d';
+        roundedRect(qrX, qrY, qrSize, qrSize, 10);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+        ctx.stroke();
 
         if (!window.QRious) {
           ctx.fillStyle = '#b61a1a';
-          ctx.fillRect(qrX + 18, qrY + 28, qrSize - 36, qrSize - 36);
+          ctx.fillRect(qrX + 18, qrY + 18, qrSize - 36, qrSize - 36);
           ctx.fillStyle = '#f3eee9';
-          ctx.font = '700 18px "JetBrains Mono", monospace';
+          ctx.font = '700 22px "JetBrains Mono", monospace';
           ctx.textAlign = 'center';
-          ctx.fillText('QR', qrX + qrSize / 2, qrY + qrSize / 2 + 6);
+          ctx.fillText('QR', qrX + qrSize / 2, qrY + qrSize / 2 + 8);
           return;
         }
 
@@ -354,7 +402,10 @@
 
         const img = new Image();
         img.onload = function () {
-          ctx.drawImage(img, qrX + 18, qrY + 24, qrSize - 36, qrSize - 36);
+          ctx.clearRect(qrX + 2, qrY + 2, qrSize - 4, qrSize - 4);
+          ctx.fillStyle = '#0d0d0d';
+          ctx.fillRect(qrX + 2, qrY + 2, qrSize - 4, qrSize - 4);
+          ctx.drawImage(img, qrX + 10, qrY + 10, qrSize - 20, qrSize - 20);
         };
         img.src = qr.toDataURL();
       }
@@ -486,4 +537,3 @@
     </script>
   </body>
 </html>
-
