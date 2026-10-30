@@ -3,23 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Operation Vadh | Certificate Generator</title>
-    <meta name="description" content="Generate polished Operation Vadh support certificates with default or custom content." />
+    <title>Operation Vadh | Brutalist Support Certificate</title>
+    <meta name="description" content="Generate a dark, aggressive Operation Vadh support certificate and share it online." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
     <style>
       :root {
-        --bg: #050505;
-        --panel: #111111;
-        --card: rgba(20,20,20,0.96);
-        --text: #f5f1ec;
-        --muted: #d6cabf;
-        --accent: #a51e1e;
-        --accent-2: #c52d2d;
-        --border: rgba(255,255,255,0.12);
-        --shadow: rgba(0,0,0,0.50);
+        --bg: #070707;
+        --bg-2: #121212;
+        --panel: rgba(18,18,18,0.98);
+        --text: #f3eee9;
+        --muted: #d2c8bf;
+        --acid: #e7d8c9;
+        --red: #b61a1a;
+        --red-2: #d92d2d;
+        --border: rgba(255,255,255,0.1);
+        --shadow: rgba(0, 0, 0, 0.66);
       }
 
       * { box-sizing: border-box; }
@@ -27,7 +28,9 @@
       html, body {
         margin: 0;
         min-height: 100%;
-        background: var(--bg);
+        background:
+          radial-gradient(circle at 10% 10%, rgba(182, 26, 26, 0.14), transparent 18%),
+          linear-gradient(180deg, #040404, #090909 30%, #050505);
         color: var(--text);
         font-family: 'JetBrains Mono', monospace;
       }
@@ -35,7 +38,7 @@
       body {
         display: flex;
         justify-content: center;
-        padding: 28px 18px 52px;
+        padding: 26px 18px 56px;
       }
 
       .page-shell {
@@ -44,70 +47,44 @@
 
       .topbar {
         text-align: center;
-        margin-bottom: 24px;
+        margin-bottom: 18px;
       }
 
       .eyebrow {
         display: inline-block;
-        padding: 8px 14px;
+        padding: 8px 16px;
         border: 1px solid var(--border);
         background: rgba(255,255,255,0.02);
-        letter-spacing: 0.2em;
         font-size: 0.72rem;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
       }
 
       h1 {
         margin: 12px 0 8px;
-        font-size: clamp(2rem, 4vw, 3.5rem);
-        letter-spacing: 0.15em;
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        letter-spacing: 0.12em;
         text-transform: uppercase;
       }
 
       .subtitle {
         margin: 0;
         color: var(--muted);
-        font-size: 0.9rem;
         letter-spacing: 0.08em;
-      }
-
-      .mode-switch {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin: 22px auto 26px;
-      }
-
-      .mode-btn {
-        appearance: none;
-        border: 1px solid var(--border);
-        background: rgba(255,255,255,0.02);
-        color: var(--text);
-        padding: 12px 18px;
-        font: inherit;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        cursor: pointer;
-      }
-
-      .mode-btn.active {
-        background: linear-gradient(180deg, var(--accent-2), var(--accent));
-        border-color: rgba(255,255,255,0.12);
+        font-size: 0.86rem;
       }
 
       .generator-layout {
         display: grid;
-        grid-template-columns: minmax(320px, 430px) minmax(0, 1fr);
+        grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
         gap: 24px;
         align-items: start;
       }
 
       .panel {
-        background: linear-gradient(180deg, rgba(16,16,16,0.96), rgba(8,8,8,0.97));
+        background: linear-gradient(180deg, rgba(16, 16, 16, 0.97), rgba(8, 8, 8, 0.97));
         border: 1px solid var(--border);
-        box-shadow: 0 24px 60px var(--shadow);
+        box-shadow: 0 24px 52px var(--shadow);
       }
 
       .form-panel {
@@ -144,19 +121,15 @@
         font: inherit;
       }
 
-      .field input:focus,
-      .field textarea:focus {
-        outline: 2px solid rgba(165, 30, 30, 0.22);
-        border-color: rgba(255,255,255,0.20);
-      }
-
       .field textarea {
         min-height: 120px;
         resize: vertical;
       }
 
-      .hidden {
-        display: none !important;
+      .field input:focus,
+      .field textarea:focus {
+        outline: 2px solid rgba(182, 26, 26, 0.28);
+        border-color: rgba(255,255,255,0.18);
       }
 
       .button-row {
@@ -179,7 +152,7 @@
       }
 
       .button.primary {
-        background: linear-gradient(180deg, var(--accent-2), var(--accent));
+        background: linear-gradient(180deg, var(--red-2), var(--red));
         border-color: rgba(255,255,255,0.12);
       }
 
@@ -218,8 +191,8 @@
       canvas {
         display: block;
         width: 100%;
-        max-height: 72vh;
         height: auto;
+        max-height: 72vh;
         background: #000;
         border: 1px solid rgba(255,255,255,0.06);
       }
@@ -244,44 +217,21 @@
       <div class="topbar">
         <div class="eyebrow">#OPERATIONVADH</div>
         <h1>Support Certificate</h1>
-        <p class="subtitle">Choose a default campaign layout or create a custom certificate.</p>
-      </div>
-
-      <div class="mode-switch" aria-label="Certificate content mode selector">
-        <button class="mode-btn active" data-mode="default" type="button">Default Content</button>
-        <button class="mode-btn" data-mode="custom" type="button">Custom Content</button>
+        <p class="subtitle">Dark. Aggressive. Shareable. Built for the cause.</p>
       </div>
 
       <main class="generator-layout">
         <section class="panel form-panel" aria-label="Certificate form">
           <h2 class="section-title">Certificate Details</h2>
 
-          <div id="default-content" class="content-panel">
-            <div class="field">
-              <label>Campaign Message</label>
-              <input type="text" readonly value="I stand with Operation Vadh to expose cybercrime and protect the internet." />
-            </div>
-            <div class="field">
-              <label>Default Recipient</label>
-              <input type="text" readonly value="Alex Morgan" />
-            </div>
+          <div class="field">
+            <label for="nameInput">Full Name</label>
+            <input id="nameInput" type="text" value="Alex Morgan" maxlength="32" />
           </div>
 
-          <div id="custom-content" class="content-panel hidden">
-            <div class="field">
-              <label for="nameInput">Full Name</label>
-              <input id="nameInput" type="text" value="Alex Morgan" maxlength="35" />
-            </div>
-
-            <div class="field">
-              <label for="handleInput">Alias / Handle</label>
-              <input id="handleInput" type="text" value="@ghostwatcher" maxlength="28" />
-            </div>
-
-            <div class="field">
-              <label for="messageInput">Support Statement</label>
-              <textarea id="messageInput">I stand with Operation Vadh to expose cybercrime, protect the innocent, and strengthen digital safety.</textarea>
-            </div>
+          <div class="field">
+            <label for="messageInput">Support Statement</label>
+            <textarea id="messageInput">I stand against the shadows. I support Operation Vadh and the fight against cybercrime.</textarea>
           </div>
 
           <div class="button-row">
@@ -299,9 +249,9 @@
 
         <section class="panel preview-panel" aria-label="Certificate preview">
           <div class="preview-shell">
-            <canvas id="certificateCanvas" width="1200" height="760" aria-label="Generated certificate preview"></canvas>
+            <canvas id="certificateCanvas" width="1000" height="1320" aria-label="Generated certificate preview"></canvas>
           </div>
-          <div class="footer-note">Default URL and QR code appear in both layouts.</div>
+          <div class="footer-note">Dark brutalist layout • website and QR are always included.</div>
         </section>
       </main>
     </div>
@@ -310,45 +260,14 @@
       const canvas = document.getElementById('certificateCanvas');
       const ctx = canvas.getContext('2d');
       const baseUrl = 'https://operation-vadh.github.io/';
-      const defaultName = 'Alex Morgan';
-      const defaultHandle = '@ghostwatcher';
-      const defaultMessage = 'I stand with Operation Vadh to expose cybercrime and protect the internet.';
-
-      const modeButtons = document.querySelectorAll('.mode-btn');
-      const defaultPanel = document.getElementById('default-content');
-      const customPanel = document.getElementById('custom-content');
       const nameInput = document.getElementById('nameInput');
-      const handleInput = document.getElementById('handleInput');
       const messageInput = document.getElementById('messageInput');
-      const state = { mode: 'default' };
 
       function getCurrentContent() {
-        if (state.mode === 'default') {
-          return {
-            name: defaultName,
-            handle: defaultHandle,
-            message: defaultMessage
-          };
-        }
-
         return {
           name: (nameInput.value || 'Supporter').trim() || 'Supporter',
-          handle: (handleInput.value || '@operationvadh').trim() || '@operationvadh',
-          message: (messageInput.value || 'I stand with Operation Vadh.').trim() || 'I stand with Operation Vadh.'
+          message: (messageInput.value || 'I stand against the shadows. I support Operation Vadh.').trim() || 'I stand against the shadows. I support Operation Vadh.'
         };
-      }
-
-      function setMode(mode) {
-        state.mode = mode;
-
-        modeButtons.forEach((button) => {
-          button.classList.toggle('active', button.dataset.mode === mode);
-        });
-
-        defaultPanel.classList.toggle('hidden', mode !== 'default');
-        customPanel.classList.toggle('hidden', mode !== 'custom');
-
-        renderCertificate();
       }
 
       function wrapText(text, maxWidth) {
@@ -397,139 +316,143 @@
       }
 
       function drawQrCode() {
+        const qrX = 688;
+        const qrY = 840;
+        const qrSize = 170;
+
+        roundedRect(qrX - 18, qrY - 18, qrSize + 36, qrSize + 70, 8);
+        ctx.fillStyle = '#121212';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.fillStyle = '#b61a1a';
+        ctx.fillRect(qrX, qrY - 2, qrSize, 4);
+
+        ctx.fillStyle = '#f3eee9';
+        ctx.font = '700 16px "JetBrains Mono", monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText('SCAN TO VERIFY', qrX + 8, qrY - 18);
+
         if (!window.QRious) {
-          ctx.fillStyle = '#b72424';
-          ctx.fillRect(930, 560, 150, 150);
-          ctx.fillStyle = '#f5f1ec';
+          ctx.fillStyle = '#b61a1a';
+          ctx.fillRect(qrX + 18, qrY + 28, qrSize - 36, qrSize - 36);
+          ctx.fillStyle = '#f3eee9';
           ctx.font = '700 18px "JetBrains Mono", monospace';
           ctx.textAlign = 'center';
-          ctx.fillText('QR', 1005, 640);
+          ctx.fillText('QR', qrX + qrSize / 2, qrY + qrSize / 2 + 6);
           return;
         }
 
         const qr = new QRious({
           value: baseUrl,
-          size: 150,
-          background: '#fff',
+          size: qrSize,
+          background: '#ffffff',
           foreground: '#0d0d0d'
         });
 
         const img = new Image();
         img.onload = function () {
-          ctx.drawImage(img, 940, 550, 150, 150);
+          ctx.drawImage(img, qrX + 18, qrY + 24, qrSize - 36, qrSize - 36);
         };
         img.src = qr.toDataURL();
       }
 
       function renderCertificate() {
-        const { name, handle, message } = getCurrentContent();
+        const { name, message } = getCurrentContent();
         const width = canvas.width;
         const height = canvas.height;
 
         ctx.clearRect(0, 0, width, height);
 
-        const bg = ctx.createRadialGradient(width / 2, height / 2, 80, width / 2, height / 2, width * 0.72);
-        bg.addColorStop(0, '#171717');
-        bg.addColorStop(0.45, '#0f0f0f');
-        bg.addColorStop(1, '#000');
+        const bg = ctx.createRadialGradient(width / 2, height / 2, 80, width / 2, height / 2, width * 0.8);
+        bg.addColorStop(0, '#141414');
+        bg.addColorStop(0.45, '#0d0d0d');
+        bg.addColorStop(1, '#030303');
         ctx.fillStyle = bg;
         ctx.fillRect(0, 0, width, height);
 
-        for (let x = 0; x < width; x += 54) {
-          ctx.strokeStyle = 'rgba(255,255,255,0.04)';
-          ctx.beginPath();
-          ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
+        ctx.fillStyle = 'rgba(255,255,255,0.04)';
+        for (let x = 0; x < width; x += 48) {
+          ctx.fillRect(x, 0, 1, height);
         }
 
-        for (let y = 0; y < height; y += 54) {
-          ctx.strokeStyle = 'rgba(255,255,255,0.04)';
-          ctx.beginPath();
-          ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
+        for (let y = 0; y < height; y += 48) {
+          ctx.fillRect(0, y, width, 1);
         }
 
-        roundedRect(50, 42, width - 100, height - 84, 26);
-        ctx.fillStyle = 'rgba(17,17,17,0.96)';
+        ctx.fillStyle = '#0d0d0d';
+        roundedRect(30, 28, width - 60, height - 56, 6);
         ctx.fill();
-        ctx.strokeStyle = '#8d1818';
+        ctx.strokeStyle = '#7b1313';
         ctx.lineWidth = 4;
         ctx.stroke();
 
-        ctx.fillStyle = '#b72424';
-        ctx.fillRect(90, 76, width - 180, 4);
+        ctx.fillStyle = '#b61a1a';
+        ctx.fillRect(52, 60, width - 104, 8);
 
-        ctx.textAlign = 'center';
-        ctx.fillStyle = '#f5f1ec';
-        ctx.font = '700 26px "JetBrains Mono", monospace';
-        ctx.fillText('#OPERATIONVADH', width / 2, 116);
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#f3eee9';
+        ctx.font = '700 18px "JetBrains Mono", monospace';
+        ctx.fillText('#OPERATIONVADH', 72, 108);
 
-        ctx.fillStyle = '#d8d0c8';
-        ctx.font = '600 20px "JetBrains Mono", monospace';
-        ctx.fillText('OFFICIAL SUPPORT CERTIFICATE', width / 2, 156);
+        ctx.fillStyle = '#b61a1a';
+        ctx.font = '700 18px "JetBrains Mono", monospace';
+        ctx.textAlign = 'right';
+        ctx.fillText('SUPPORTER CERTIFICATE', width - 72, 108);
 
-        ctx.strokeStyle = 'rgba(255,255,255,0.12)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(180, 196);
-        ctx.lineTo(width - 180, 196);
-        ctx.stroke();
-
-        ctx.fillStyle = '#f5f1ec';
-        ctx.font = '500 20px "JetBrains Mono", monospace';
-        ctx.fillText('This certificate is awarded to', width / 2, 246);
-
-        const nameSize = fitTextSize(name, 760, 42, 102, 800);
+        const nameSize = fitTextSize(name, 820, 46, 124, 800);
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#f3eee9';
         ctx.font = `800 ${nameSize}px "JetBrains Mono", monospace`;
         const nameLines = wrapText(name, 760);
-        let currentY = 344;
+        let currentY = 410;
         nameLines.forEach((line, index) => {
-          ctx.fillText(line, width / 2, currentY + (index * (nameSize + 18)));
+          ctx.fillText(line, 84, currentY + index * (nameSize + 16));
         });
 
-        ctx.fillStyle = '#d7cfc4';
-        ctx.font = '600 24px "JetBrains Mono", monospace';
-        ctx.fillText(handle, width / 2, 463);
+        ctx.fillStyle = '#b61a1a';
+        ctx.font = '700 28px "JetBrains Mono", monospace';
+        ctx.fillText('I STAND WITH THE CAUSE', 90, 620);
 
-        ctx.strokeStyle = 'rgba(185, 34, 34, 0.9)';
-        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#b61a1a';
+        ctx.lineWidth = 3;
         ctx.beginPath();
-        ctx.moveTo(220, 500);
-        ctx.lineTo(width - 220, 500);
+        ctx.moveTo(92, 646);
+        ctx.lineTo(520, 646);
         ctx.stroke();
 
-        ctx.fillStyle = '#efe6df';
-        ctx.font = '500 22px "JetBrains Mono", monospace';
-        const messageLines = wrapText(message, 800);
-        const messageStartY = 550;
-        messageLines.slice(0, 3).forEach((line, index) => {
-          ctx.fillText(line, width / 2, messageStartY + index * 38);
+        ctx.fillStyle = '#efe4d8';
+        ctx.font = '500 30px "JetBrains Mono", monospace';
+        const statementLines = wrapText(message, 640);
+        statementLines.slice(0, 3).forEach((line, index) => {
+          ctx.fillText(line, 90, 720 + index * 42);
         });
 
-        ctx.fillStyle = '#b72424';
-        ctx.font = '700 19px "JetBrains Mono", monospace';
-        ctx.fillText('WE FIGHT CYBER CRIME • WE PROTECT THE INTERNET', width / 2, 660);
-
-        ctx.strokeStyle = 'rgba(255,255,255,0.12)';
-        ctx.beginPath();
-        ctx.moveTo(150, 690);
-        ctx.lineTo(width - 150, 690);
-        ctx.stroke();
-
-        ctx.fillStyle = '#f5f1ec';
+        ctx.fillStyle = '#b61a1a';
         ctx.font = '700 18px "JetBrains Mono", monospace';
-        ctx.fillText('operation-vadh.github.io', width / 2, 714);
+        ctx.fillText('VISIT', 90, 950);
+        ctx.fillStyle = '#f3eee9';
+        ctx.fillText('operation-vadh.github.io', 170, 950);
 
-        ctx.fillStyle = '#b72424';
-        ctx.fillRect(100, 620, 160, 58);
-        ctx.fillStyle = '#111111';
-        ctx.font = '800 38px "JetBrains Mono", monospace';
-        ctx.fillText('V', 126, 662);
+        ctx.fillStyle = '#f3eee9';
+        ctx.font = '700 22px "JetBrains Mono", monospace';
+        ctx.fillText('FIGHT THE SHADOWS.', 90, 1010);
+
+        ctx.fillStyle = '#b61a1a';
+        ctx.fillRect(52, 1060, width - 104, 2);
 
         drawQrCode();
+
+        ctx.fillStyle = '#f3eee9';
+        ctx.font = '700 16px "JetBrains Mono", monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText('SCAN / VERIFY', 95, 1125);
       }
 
-      modeButtons.forEach((button) => {
-        button.addEventListener('click', () => setMode(button.dataset.mode));
-      });
+      nameInput.addEventListener('input', renderCertificate);
+      messageInput.addEventListener('input', renderCertificate);
 
       document.getElementById('generateBtn').addEventListener('click', renderCertificate);
 
@@ -537,7 +460,7 @@
         const { name } = getCurrentContent();
         const safeName = (name || 'supporter').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'supporter';
         const link = document.createElement('a');
-        link.download = `operation-vadh-certificate-${safeName}.png`;
+        link.download = `operation-vadh-support-certificate-${safeName}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
       });
@@ -545,7 +468,7 @@
       document.querySelectorAll('.share-btn').forEach((button) => {
         button.addEventListener('click', function () {
           const platform = this.dataset.share;
-          const shareText = `I support Operation Vadh and stand against cybercrime. ${baseUrl}`;
+          const shareText = `I stand with Operation Vadh. ${baseUrl}`;
           const encodedText = encodeURIComponent(shareText);
           const encodedUrl = encodeURIComponent(baseUrl);
 
@@ -559,7 +482,8 @@
         });
       });
 
-      setMode('default');
+      renderCertificate();
     </script>
   </body>
 </html>
+
