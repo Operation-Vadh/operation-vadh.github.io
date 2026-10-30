@@ -3,33 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Operation Vadh | Support Badge Generator</title>
-    <meta
-      name="description"
-      content="Generate a digital support badge for Operation Vadh and share it online."
-    />
+    <title>Operation Vadh | Certificate Generator</title>
+    <meta name="description" content="Generate polished Operation Vadh support certificates with default or custom content." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
     <style>
       :root {
         --bg: #050505;
         --panel: #111111;
-        --panel-strong: #171717;
+        --card: rgba(20,20,20,0.96);
         --text: #f5f1ec;
-        --muted: #d0c7be;
-        --accent: #9f1d1d;
-        --accent-soft: rgba(159, 29, 29, 0.25);
-        --border: rgba(255, 255, 255, 0.08);
-        --shadow: rgba(0, 0, 0, 0.42);
+        --muted: #d6cabf;
+        --accent: #a51e1e;
+        --accent-2: #c52d2d;
+        --border: rgba(255,255,255,0.12);
+        --shadow: rgba(0,0,0,0.50);
       }
 
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
       html, body {
         margin: 0;
@@ -42,11 +35,11 @@
       body {
         display: flex;
         justify-content: center;
-        padding: 32px 20px 56px;
+        padding: 28px 18px 52px;
       }
 
       .page-shell {
-        width: min(1200px, 100%);
+        width: min(1260px, 100%);
       }
 
       .topbar {
@@ -58,95 +51,38 @@
         display: inline-block;
         padding: 8px 14px;
         border: 1px solid var(--border);
-        letter-spacing: 0.22em;
+        background: rgba(255,255,255,0.02);
+        letter-spacing: 0.2em;
         font-size: 0.72rem;
-        color: var(--text);
         text-transform: uppercase;
       }
 
       h1 {
         margin: 12px 0 8px;
         font-size: clamp(2rem, 4vw, 3.5rem);
-        letter-spacing: 0.12em;
+        letter-spacing: 0.15em;
         text-transform: uppercase;
       }
 
       .subtitle {
+        margin: 0;
         color: var(--muted);
+        font-size: 0.9rem;
         letter-spacing: 0.08em;
-        font-size: 0.92rem;
       }
 
-      .generator-layout {
-        display: grid;
-        grid-template-columns: minmax(300px, 420px) minmax(0, 1fr);
-        gap: 24px;
-        align-items: start;
-      }
-
-      .panel {
-        background: linear-gradient(180deg, rgba(19, 19, 19, 0.92), rgba(9, 9, 9, 0.92));
-        border: 1px solid var(--border);
-        box-shadow: 0 22px 48px var(--shadow);
-      }
-
-      .form-panel {
-        padding: 26px 22px 18px;
-      }
-
-      .section-title {
-        margin: 0 0 18px;
-        font-size: 1.4rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .field {
-        display: block;
-        margin-bottom: 18px;
-      }
-
-      .field label {
-        display: block;
-        margin-bottom: 8px;
-        color: var(--muted);
-        font-size: 0.8rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-      }
-
-      .field input,
-      .field textarea {
-        width: 100%;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid var(--border);
-        color: var(--text);
-        padding: 12px 14px;
-        font: inherit;
-        resize: vertical;
-      }
-
-      .field input:focus,
-      .field textarea:focus {
-        outline: 2px solid var(--accent-soft);
-        border-color: rgba(255, 255, 255, 0.18);
-      }
-
-      .field textarea {
-        min-height: 104px;
-      }
-
-      .button-row {
+      .mode-switch {
         display: flex;
-        flex-wrap: wrap;
+        justify-content: center;
         gap: 12px;
-        margin-top: 8px;
+        flex-wrap: wrap;
+        margin: 22px auto 26px;
       }
 
-      .button {
+      .mode-btn {
         appearance: none;
         border: 1px solid var(--border);
-        background: rgba(255, 255, 255, 0.02);
+        background: rgba(255,255,255,0.02);
         color: var(--text);
         padding: 12px 18px;
         font: inherit;
@@ -154,17 +90,97 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         cursor: pointer;
-        transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
       }
 
-      .button:hover {
-        transform: translateY(-1px);
-        border-color: rgba(255, 255, 255, 0.2);
+      .mode-btn.active {
+        background: linear-gradient(180deg, var(--accent-2), var(--accent));
+        border-color: rgba(255,255,255,0.12);
+      }
+
+      .generator-layout {
+        display: grid;
+        grid-template-columns: minmax(320px, 430px) minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+      }
+
+      .panel {
+        background: linear-gradient(180deg, rgba(16,16,16,0.96), rgba(8,8,8,0.97));
+        border: 1px solid var(--border);
+        box-shadow: 0 24px 60px var(--shadow);
+      }
+
+      .form-panel {
+        padding: 22px 20px 18px;
+      }
+
+      .section-title {
+        margin: 0 0 18px;
+        font-size: 1.35rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .field {
+        margin-bottom: 18px;
+      }
+
+      .field label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--muted);
+        font-size: 0.74rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .field input,
+      .field textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,0.02);
+        color: var(--text);
+        padding: 12px 14px;
+        font: inherit;
+      }
+
+      .field input:focus,
+      .field textarea:focus {
+        outline: 2px solid rgba(165, 30, 30, 0.22);
+        border-color: rgba(255,255,255,0.20);
+      }
+
+      .field textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .button {
+        appearance: none;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,0.02);
+        color: var(--text);
+        padding: 12px 18px;
+        font: inherit;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
       }
 
       .button.primary {
-        background: var(--accent);
-        border-color: rgba(255, 255, 255, 0.12);
+        background: linear-gradient(180deg, var(--accent-2), var(--accent));
+        border-color: rgba(255,255,255,0.12);
       }
 
       .share-row {
@@ -175,55 +191,50 @@
       }
 
       .share-btn {
-        flex: 1 1 84px;
-        min-width: 84px;
-        background: rgba(255, 255, 255, 0.02);
+        flex: 1 1 82px;
+        min-width: 82px;
         border: 1px solid var(--border);
+        background: rgba(255,255,255,0.02);
         color: var(--text);
         padding: 10px 12px;
-        cursor: pointer;
         font: inherit;
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
+        cursor: pointer;
       }
 
       .preview-panel {
         padding: 16px;
       }
 
-      .preview-frame {
+      .preview-shell {
         width: 100%;
-        background: rgba(255, 255, 255, 0.02);
+        background: rgba(255,255,255,0.02);
         border: 1px solid var(--border);
-        padding: 16px;
+        padding: 18px;
       }
 
       canvas {
         display: block;
         width: 100%;
+        max-height: 72vh;
         height: auto;
-        max-height: 68vh;
         background: #000;
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255,255,255,0.06);
       }
 
       .footer-note {
-        margin-top: 18px;
-        color: var(--muted);
-        font-size: 0.75rem;
-        letter-spacing: 0.08em;
+        margin-top: 16px;
         text-align: center;
+        color: var(--muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
       }
 
-      @media (max-width: 840px) {
+      @media (max-width: 920px) {
         .generator-layout {
           grid-template-columns: 1fr;
-        }
-
-        body {
-          padding-left: 14px;
-          padding-right: 14px;
         }
       }
     </style>
@@ -232,37 +243,53 @@
     <div class="page-shell">
       <div class="topbar">
         <div class="eyebrow">#OPERATIONVADH</div>
-        <h1>Support Badge</h1>
-        <p class="subtitle">Create a statement of support and share it with the world.</p>
+        <h1>Support Certificate</h1>
+        <p class="subtitle">Choose a default campaign layout or create a custom certificate.</p>
+      </div>
+
+      <div class="mode-switch" aria-label="Certificate content mode selector">
+        <button class="mode-btn active" data-mode="default" type="button">Default Content</button>
+        <button class="mode-btn" data-mode="custom" type="button">Custom Content</button>
       </div>
 
       <main class="generator-layout">
-        <section class="panel form-panel" aria-label="Badge generator form">
-          <h2 class="section-title">Generate Badge</h2>
+        <section class="panel form-panel" aria-label="Certificate form">
+          <h2 class="section-title">Certificate Details</h2>
 
-          <form id="badgeForm">
+          <div id="default-content" class="content-panel">
+            <div class="field">
+              <label>Campaign Message</label>
+              <input type="text" readonly value="I stand with Operation Vadh to expose cybercrime and protect the internet." />
+            </div>
+            <div class="field">
+              <label>Default Recipient</label>
+              <input type="text" readonly value="Alex Morgan" />
+            </div>
+          </div>
+
+          <div id="custom-content" class="content-panel hidden">
             <div class="field">
               <label for="nameInput">Full Name</label>
-              <input id="nameInput" name="name" type="text" value="Alex Morgan" maxlength="28" />
+              <input id="nameInput" type="text" value="Alex Morgan" maxlength="35" />
             </div>
 
             <div class="field">
               <label for="handleInput">Alias / Handle</label>
-              <input id="handleInput" name="handle" type="text" value="@ghostwatcher" maxlength="24" />
+              <input id="handleInput" type="text" value="@ghostwatcher" maxlength="28" />
             </div>
 
             <div class="field">
-              <label for="messageInput">Support Message</label>
-              <textarea id="messageInput" name="message">I stand with Operation Vadh to expose cybercrime and protect the internet.</textarea>
+              <label for="messageInput">Support Statement</label>
+              <textarea id="messageInput">I stand with Operation Vadh to expose cybercrime, protect the innocent, and strengthen digital safety.</textarea>
             </div>
+          </div>
 
-            <div class="button-row">
-              <button class="button primary" type="submit">Generate</button>
-              <button class="button" id="downloadBtn" type="button">Download PNG</button>
-            </div>
-          </form>
+          <div class="button-row">
+            <button class="button primary" id="generateBtn" type="button">Generate</button>
+            <button class="button" id="downloadBtn" type="button">Download PNG</button>
+          </div>
 
-          <div class="share-row" aria-label="Share the badge">
+          <div class="share-row" aria-label="Share certificate">
             <button class="share-btn" data-share="x" type="button">X</button>
             <button class="share-btn" data-share="linkedin" type="button">LinkedIn</button>
             <button class="share-btn" data-share="telegram" type="button">Telegram</button>
@@ -270,27 +297,62 @@
           </div>
         </section>
 
-        <section class="panel preview-panel" aria-label="Badge preview">
-          <div class="preview-frame">
-            <canvas id="badgeCanvas" width="1200" height="760" aria-label="Badge preview canvas"></canvas>
+        <section class="panel preview-panel" aria-label="Certificate preview">
+          <div class="preview-shell">
+            <canvas id="certificateCanvas" width="1200" height="760" aria-label="Generated certificate preview"></canvas>
           </div>
-          <div class="footer-note">Badge is generated locally in your browser.</div>
+          <div class="footer-note">Default URL and QR code appear in both layouts.</div>
         </section>
       </main>
     </div>
 
     <script>
-      const canvas = document.getElementById('badgeCanvas');
+      const canvas = document.getElementById('certificateCanvas');
       const ctx = canvas.getContext('2d');
-      const form = document.getElementById('badgeForm');
+      const baseUrl = 'https://operation-vadh.github.io/';
+      const defaultName = 'Alex Morgan';
+      const defaultHandle = '@ghostwatcher';
+      const defaultMessage = 'I stand with Operation Vadh to expose cybercrime and protect the internet.';
+
+      const modeButtons = document.querySelectorAll('.mode-btn');
+      const defaultPanel = document.getElementById('default-content');
+      const customPanel = document.getElementById('custom-content');
       const nameInput = document.getElementById('nameInput');
       const handleInput = document.getElementById('handleInput');
       const messageInput = document.getElementById('messageInput');
+      const state = { mode: 'default' };
 
-      const baseUrl = 'https://operation-vadh.github.io/';
+      function getCurrentContent() {
+        if (state.mode === 'default') {
+          return {
+            name: defaultName,
+            handle: defaultHandle,
+            message: defaultMessage
+          };
+        }
+
+        return {
+          name: (nameInput.value || 'Supporter').trim() || 'Supporter',
+          handle: (handleInput.value || '@operationvadh').trim() || '@operationvadh',
+          message: (messageInput.value || 'I stand with Operation Vadh.').trim() || 'I stand with Operation Vadh.'
+        };
+      }
+
+      function setMode(mode) {
+        state.mode = mode;
+
+        modeButtons.forEach((button) => {
+          button.classList.toggle('active', button.dataset.mode === mode);
+        });
+
+        defaultPanel.classList.toggle('hidden', mode !== 'default');
+        customPanel.classList.toggle('hidden', mode !== 'custom');
+
+        renderCertificate();
+      }
 
       function wrapText(text, maxWidth) {
-        const words = text.split(' ');
+        const words = text.split(/\s+/).filter(Boolean);
         const lines = [];
         let current = '';
 
@@ -305,132 +367,177 @@
         }
 
         if (current) lines.push(current);
-        return lines;
+        return lines.length ? lines : [''];
       }
 
-      function roundedRect(x, y, width, height, radius) {
+      function fitTextSize(text, maxWidth, minSize, maxSize, weight) {
+        let best = minSize;
+        for (let size = maxSize; size >= minSize; size -= 2) {
+          ctx.font = `${weight} ${size}px "JetBrains Mono", monospace`;
+          if (ctx.measureText(text).width <= maxWidth) {
+            best = size;
+            break;
+          }
+        }
+        return best;
+      }
+
+      function roundedRect(x, y, w, h, r) {
         ctx.beginPath();
-        ctx.moveTo(x + radius, y);
-        ctx.lineTo(x + width - radius, y);
-        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-        ctx.lineTo(x + width, y + height - radius);
-        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-        ctx.lineTo(x + radius, y + height);
-        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-        ctx.lineTo(x, y + radius);
-        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
         ctx.closePath();
       }
 
-      function renderBadge() {
-        const name = (nameInput.value || 'Supporter').trim() || 'Supporter';
-        const handle = (handleInput.value || '@operationvadh').trim() || '@operationvadh';
-        const message = (messageInput.value || 'I stand with Operation Vadh.').trim() || 'I stand with Operation Vadh.';
+      function drawQrCode() {
+        if (!window.QRious) {
+          ctx.fillStyle = '#b72424';
+          ctx.fillRect(930, 560, 150, 150);
+          ctx.fillStyle = '#f5f1ec';
+          ctx.font = '700 18px "JetBrains Mono", monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('QR', 1005, 640);
+          return;
+        }
 
+        const qr = new QRious({
+          value: baseUrl,
+          size: 150,
+          background: '#fff',
+          foreground: '#0d0d0d'
+        });
+
+        const img = new Image();
+        img.onload = function () {
+          ctx.drawImage(img, 940, 550, 150, 150);
+        };
+        img.src = qr.toDataURL();
+      }
+
+      function renderCertificate() {
+        const { name, handle, message } = getCurrentContent();
         const width = canvas.width;
         const height = canvas.height;
 
         ctx.clearRect(0, 0, width, height);
 
-        const background = ctx.createRadialGradient(width / 2, height / 2, 80, width / 2, height / 2, width * 0.82);
-        background.addColorStop(0, '#171717');
-        background.addColorStop(0.5, '#090909');
-        background.addColorStop(1, '#000000');
-        ctx.fillStyle = background;
+        const bg = ctx.createRadialGradient(width / 2, height / 2, 80, width / 2, height / 2, width * 0.72);
+        bg.addColorStop(0, '#171717');
+        bg.addColorStop(0.45, '#0f0f0f');
+        bg.addColorStop(1, '#000');
+        ctx.fillStyle = bg;
         ctx.fillRect(0, 0, width, height);
 
-        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-        ctx.lineWidth = 1;
-        for (let x = 0; x < width; x += 48) {
+        for (let x = 0; x < width; x += 54) {
+          ctx.strokeStyle = 'rgba(255,255,255,0.04)';
           ctx.beginPath();
-          ctx.moveTo(x, 0);
-          ctx.lineTo(x, height);
-          ctx.stroke();
+          ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
         }
 
-        for (let y = 0; y < height; y += 48) {
+        for (let y = 0; y < height; y += 54) {
+          ctx.strokeStyle = 'rgba(255,255,255,0.04)';
           ctx.beginPath();
-          ctx.moveTo(0, y);
-          ctx.lineTo(width, y);
-          ctx.stroke();
+          ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
         }
 
-        roundedRect(66, 56, width - 132, height - 112, 28);
+        roundedRect(50, 42, width - 100, height - 84, 26);
         ctx.fillStyle = 'rgba(17,17,17,0.96)';
         ctx.fill();
-        ctx.strokeStyle = '#7c1212';
-        ctx.lineWidth = 6;
+        ctx.strokeStyle = '#8d1818';
+        ctx.lineWidth = 4;
         ctx.stroke();
 
-        ctx.fillStyle = '#f5f1ec';
-        ctx.font = '700 24px "JetBrains Mono", monospace';
-        ctx.letterSpacing = '0.24em';
-        ctx.textAlign = 'left';
-        ctx.fillText('#OPERATIONVADH', 96, 116);
+        ctx.fillStyle = '#b72424';
+        ctx.fillRect(90, 76, width - 180, 4);
 
-        ctx.fillStyle = '#a82323';
-        ctx.font = '800 76px "JetBrains Mono", monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('SUPPORTER BADGE', width / 2, 190);
+        ctx.fillStyle = '#f5f1ec';
+        ctx.font = '700 26px "JetBrains Mono", monospace';
+        ctx.fillText('#OPERATIONVADH', width / 2, 116);
 
-        ctx.strokeStyle = '#a82323';
+        ctx.fillStyle = '#d8d0c8';
+        ctx.font = '600 20px "JetBrains Mono", monospace';
+        ctx.fillText('OFFICIAL SUPPORT CERTIFICATE', width / 2, 156);
+
+        ctx.strokeStyle = 'rgba(255,255,255,0.12)';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(150, 219);
-        ctx.lineTo(width - 150, 219);
+        ctx.moveTo(180, 196);
+        ctx.lineTo(width - 180, 196);
         ctx.stroke();
 
         ctx.fillStyle = '#f5f1ec';
-        ctx.font = '800 96px "JetBrains Mono", monospace';
-        const nameLines = wrapText(name, 650);
-        const nameY = 380;
+        ctx.font = '500 20px "JetBrains Mono", monospace';
+        ctx.fillText('This certificate is awarded to', width / 2, 246);
+
+        const nameSize = fitTextSize(name, 760, 42, 102, 800);
+        ctx.font = `800 ${nameSize}px "JetBrains Mono", monospace`;
+        const nameLines = wrapText(name, 760);
+        let currentY = 344;
         nameLines.forEach((line, index) => {
-          ctx.fillText(line, width / 2, nameY + index * 92);
+          ctx.fillText(line, width / 2, currentY + (index * (nameSize + 18)));
         });
 
         ctx.fillStyle = '#d7cfc4';
-        ctx.font = '600 28px "JetBrains Mono", monospace';
-        ctx.fillText(handle, width / 2, 560);
+        ctx.font = '600 24px "JetBrains Mono", monospace';
+        ctx.fillText(handle, width / 2, 463);
 
-        ctx.fillStyle = '#e8ddd3';
-        ctx.font = '500 30px "JetBrains Mono", monospace';
+        ctx.strokeStyle = 'rgba(185, 34, 34, 0.9)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(220, 500);
+        ctx.lineTo(width - 220, 500);
+        ctx.stroke();
+
+        ctx.fillStyle = '#efe6df';
+        ctx.font = '500 22px "JetBrains Mono", monospace';
         const messageLines = wrapText(message, 800);
-        messageLines.forEach((line, index) => {
-          ctx.fillText(line, width / 2, 620 + index * 38);
+        const messageStartY = 550;
+        messageLines.slice(0, 3).forEach((line, index) => {
+          ctx.fillText(line, width / 2, messageStartY + index * 38);
         });
 
-        ctx.fillStyle = '#9a1d1d';
-        ctx.font = '700 22px "JetBrains Mono", monospace';
-        ctx.fillText('WE FIGHT CYBER CRIME • WE PROTECT THE INTERNET', width / 2, 700);
+        ctx.fillStyle = '#b72424';
+        ctx.font = '700 19px "JetBrains Mono", monospace';
+        ctx.fillText('WE FIGHT CYBER CRIME • WE PROTECT THE INTERNET', width / 2, 660);
+
+        ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+        ctx.beginPath();
+        ctx.moveTo(150, 690);
+        ctx.lineTo(width - 150, 690);
+        ctx.stroke();
 
         ctx.fillStyle = '#f5f1ec';
         ctx.font = '700 18px "JetBrains Mono", monospace';
-        ctx.fillText('operation-vadh.github.io', width / 2, 734);
+        ctx.fillText('operation-vadh.github.io', width / 2, 714);
 
-        ctx.fillStyle = '#a82323';
-        ctx.beginPath();
-        ctx.moveTo(width - 260, 130);
-        ctx.lineTo(width - 190, 172);
-        ctx.lineTo(width - 210, 250);
-        ctx.lineTo(width - 300, 250);
-        ctx.lineTo(width - 320, 172);
-        ctx.closePath();
-        ctx.fill();
-
-        ctx.fillStyle = '#121212';
+        ctx.fillStyle = '#b72424';
+        ctx.fillRect(100, 620, 160, 58);
+        ctx.fillStyle = '#111111';
         ctx.font = '800 38px "JetBrains Mono", monospace';
-        ctx.fillText('V', width - 255, 210);
+        ctx.fillText('V', 126, 662);
+
+        drawQrCode();
       }
 
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        renderBadge();
+      modeButtons.forEach((button) => {
+        button.addEventListener('click', () => setMode(button.dataset.mode));
       });
 
+      document.getElementById('generateBtn').addEventListener('click', renderCertificate);
+
       document.getElementById('downloadBtn').addEventListener('click', function () {
-        const safeName = (nameInput.value || 'supporter').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'supporter';
+        const { name } = getCurrentContent();
+        const safeName = (name || 'supporter').trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'supporter';
         const link = document.createElement('a');
-        link.download = `operation-vadh-support-badge-${safeName}.png`;
+        link.download = `operation-vadh-certificate-${safeName}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
       });
@@ -440,27 +547,19 @@
           const platform = this.dataset.share;
           const shareText = `I support Operation Vadh and stand against cybercrime. ${baseUrl}`;
           const encodedText = encodeURIComponent(shareText);
-          const url = encodeURIComponent(baseUrl);
+          const encodedUrl = encodeURIComponent(baseUrl);
 
           let shareUrl = '';
+          if (platform === 'x') shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}`;
+          if (platform === 'linkedin') shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+          if (platform === 'telegram') shareUrl = `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`;
+          if (platform === 'whatsapp') shareUrl = `https://wa.me/?text=${encodedText}`;
 
-          if (platform === 'x') {
-            shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}`;
-          } else if (platform === 'linkedin') {
-            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-          } else if (platform === 'telegram') {
-            shareUrl = `https://t.me/share/url?url=${url}&text=${encodedText}`;
-          } else if (platform === 'whatsapp') {
-            shareUrl = `https://wa.me/?text=${encodedText}`;
-          }
-
-          if (shareUrl) {
-            window.open(shareUrl, '_blank', 'noopener,noreferrer');
-          }
+          if (shareUrl) window.open(shareUrl, '_blank', 'noopener,noreferrer');
         });
       });
 
-      renderBadge();
+      setMode('default');
     </script>
   </body>
 </html>
