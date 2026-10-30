@@ -4,204 +4,454 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operation Vadh - Fight Cyber Crime & Bring Justice</title>
-    <meta name="description" content="Join Operation Vadh to combat cybercrime using OSINT and hacking skills. Inspired by the mission to expose bad actors and make the internet safer for everyone." />
+    <meta name="description" content="Join Operation Vadh to combat cybercrime using OSINT and hacking skills. Inspired by the mission to expose bad actors and make the internet safer for everyone.">
     <meta name="keywords" content="Operation Vadh, Cyber Crime, OSINT, Digital Investigation, Hackers, Cybersecurity, Justice, Vadh, Cyber Crime Fight, Online Safety, Digital Vigilance" />
     <script src="/_sdk/element_sdk.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-          body {
-              box-sizing: border-box;
-          }
+      body {
+        box-sizing: border-box;
+      }
 
-          * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-          }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-          html, body {
-              height: 100%;
-              width: 100%;
-          }
+      html, body {
+        height: 100%;
+        width: 100%;
+      }
 
-          body {
-              font-family: 'JetBrains Mono', monospace;
-              background: #000000;
-              color: #050505;
-              line-height: 1.7;
-          }
+      body {
+        font-family: 'JetBrains Mono', monospace;
+        background: #000000;
+        color: #050505;
+        line-height: 1.7;
+      }
 
-          .main-wrapper {
-              width: 100%;
-              min-height: 100%;
-              background: #000000;
-              overflow: auto;
-          }
+      .main-wrapper {
+        width: 100%;
+        min-height: 100%;
+        background: #000000;
+        overflow: auto;
+      }
 
-          .content-container {
-              max-width: 900px;
-              margin: 0 auto;
-              padding: 4rem 2rem;
-          }
+      .content-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+      }
 
-          .darkness-hint {
-              text-align: center;
-              margin-bottom: 4rem;
-              padding: 2rem;
-              border: 2px solid #1a1a1a;
-              background: #000000;
-          }
+      .darkness-hint {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding: 2rem;
+        border: 2px solid #1a1a1a;
+        background: #000000;
+      }
 
-          .darkness-hint p {
-              font-size: 1.5rem;
-              color: #ffffff;
-              letter-spacing: 0.08em;
-              line-height: 1.9;
-              font-weight: 600;
-              text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-          }
+      .darkness-hint p {
+        font-size: 1.5rem;
+        color: #ffffff;
+        letter-spacing: 0.08em;
+        line-height: 1.9;
+        font-weight: 600;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      }
 
-          .cta-row {
-              display: flex;
-              justify-content: center;
-              flex-wrap: wrap;
-              gap: 12px;
-              margin: 1.5rem 0 3rem;
-          }
+      header {
+        text-align: center;
+        margin-bottom: 4rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #0a0a0a;
+      }
 
-          .cta-row a {
-              display: inline-block;
-              padding: 12px 18px;
-              border: 1px solid #2a2a2a;
-              background: rgba(255,255,255,0.02);
-              color: #ffffff;
-              text-decoration: none;
-              font-size: 0.7rem;
-              letter-spacing: 0.14em;
-              text-transform: uppercase;
-          }
+      .operation-tag {
+        display: inline-block;
+        font-size: 0.9rem;
+        color: #0a0000;
+        letter-spacing: 0.2em;
+        margin-bottom: 1.5rem;
+        padding: 0.5rem 1rem;
+        border: 1px solid #050000;
+        text-shadow: 0 0 1px rgba(10, 0, 0, 0.3);
+      }
 
-          .cta-row a.primary {
-              background: #b61a1a;
-              border-color: #d92d2d;
-          }
+      h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 1rem;
+        letter-spacing: 0.15em;
+        text-shadow: 0 0 3px rgba(26, 26, 26, 0.4);
+      }
 
-          header {
-              text-align: center;
-              margin-bottom: 4rem;
-              padding-bottom: 2rem;
-              border-bottom: 1px solid #0a0a0a;
-          }
+      .tagline {
+        font-size: 1.2rem;
+        color: #181818;
+        letter-spacing: 0.1em;
+        font-weight: 400;
+      }
 
-          .operation-tag {
-              display: inline-block;
-              font-size: 0.9rem;
-              color: #0a0000;
-              letter-spacing: 0.2em;
-              margin-bottom: 1.5rem;
-              padding: 0.5rem 1rem;
-              border: 1px solid #050000;
-              text-shadow: 0 0 1px rgba(10, 0, 0, 0.3);
-          }
+      .intro-section {
+        margin-bottom: 4rem;
+        padding: 2.5rem;
+        background: #000000;
+        border: 1px solid #0a0a0a;
+      }
 
-          h1 {
-              font-size: 4rem;
-              font-weight: 700;
-              color: #1a1a1a;
-              margin-bottom: 1rem;
-              letter-spacing: 0.15em;
-              text-shadow: 0 0 3px rgba(26, 26, 26, 0.4);
-          }
+      .intro-section h2 {
+        font-size: 2rem;
+        color: #1a1a1a;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.1em;
+        font-weight: 600;
+      }
 
-          .tagline {
-              font-size: 1.2rem;
-              color: #181818;
-              letter-spacing: 0.1em;
-              font-weight: 400;
-          }
+      .intro-section p {
+        font-size: 1.1rem;
+        color: #181818;
+        line-height: 1.9;
+        margin-bottom: 1.25rem;
+      }
 
-          .description {
-              max-width: 700px;
-              margin: 0 auto;
-              font-size: 1rem;
-              color: #ffffff;
-              letter-spacing: 0.04em;
-          }
+      .mission-section {
+        margin-bottom: 4rem;
+      }
 
-          .custom-links {
-              margin-top: 1.5rem;
-          }
+      .mission-section h2 {
+        font-size: 2.2rem;
+        color: #1a1a1a;
+        margin-bottom: 2.5rem;
+        text-align: center;
+        letter-spacing: 0.1em;
+        font-weight: 600;
+      }
 
-          .custom-links a {
-              color: #ff6d6d;
-              text-decoration: none;
-          }
+      .mission-grid {
+        display: grid;
+        gap: 2rem;
+      }
 
-          .cta-buttons {
-              display: flex;
-              justify-content: center;
-              gap: 1rem;
-              flex-wrap: wrap;
-              margin-top: 2rem;
-          }
+      .mission-card {
+        padding: 2rem;
+        background: #000000;
+        border-left: 3px solid #0a0a0a;
+        position: relative;
+      }
 
-          .cta-buttons a {
-              text-decoration: none;
-              color: #fff;
-              border: 1px solid rgba(255,255,255,0.15);
-              padding: 0.8rem 1.1rem;
-              font-size: 0.75rem;
-              letter-spacing: 0.12em;
-              text-transform: uppercase;
-              background: rgba(255,255,255,0.02);
-          }
+      .mission-card::before {
+        content: '';
+        position: absolute;
+        left: -3px;
+        top: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(to bottom, transparent, #1a0000, transparent);
+        opacity: 0.3;
+      }
 
-          .cta-buttons a.primary {
-              background: #b61a1a;
-              border-color: #d92d2d;
-          }
+      .mission-number {
+        font-size: 0.85rem;
+        color: #1a0000;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        letter-spacing: 0.15em;
+      }
 
-          @media (max-width: 640px) {
-              h1 {
-                  font-size: 2.5rem;
-              }
+      .mission-card h3 {
+        font-size: 1.4rem;
+        color: #1a1a1a;
+        margin-bottom: 1rem;
+        letter-spacing: 0.08em;
+        font-weight: 600;
+      }
 
-              .darkness-hint p {
-                  font-size: 1.1rem;
-              }
-          }
+      .mission-card p {
+        color: #181818;
+        line-height: 1.8;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .mission-action {
+        padding: 1rem;
+        background: #000000;
+        border-left: 2px solid #0a0a0a;
+        font-size: 0.95rem;
+        color: #181818;
+        line-height: 1.7;
+      }
+
+      .cta-section {
+        text-align: center;
+        padding: 3rem 2rem;
+        background: #000000;
+        border: 1px solid #0a0a0a;
+        margin-bottom: 4rem;
+      }
+
+      .cta-section h2 {
+        font-size: 2.5rem;
+        color: #1a1a1a;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+      }
+
+      .cta-section p {
+        font-size: 1.15rem;
+        color: #181818;
+        margin-bottom: 2rem;
+        line-height: 1.9;
+      }
+
+      .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .cta-button {
+        display: inline-block;
+        padding: 1.25rem 3rem;
+        background: #000000;
+        color: #1a1a1a;
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        border: 2px solid #0a0a0a;
+        cursor: pointer;
+        font-family: 'JetBrains Mono', monospace;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .cta-button:hover {
+        border-color: #1a0000;
+        color: #1a0000;
+        box-shadow: 0 0 8px rgba(26, 0, 0, 0.4);
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem;
+        border-top: 1px solid #0a0a0a;
+      }
+
+      .timeline {
+        font-size: 1.1rem;
+        color: #1a0000;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.1em;
+        text-shadow: 0 0 2px rgba(26, 0, 0, 0.4);
+      }
+
+      footer p {
+        font-size: 1rem;
+        color: #181818;
+        line-height: 1.7;
+      }
+
+      .signature {
+        margin-top: 2rem;
+        font-size: 0.9rem;
+        color: #181818;
+        letter-spacing: 0.2em;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.7);
+        z-index: 999;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 20px;
+        max-width: 360px;
+        width: 90%;
+        margin: auto;
+        border-radius: 8px;
+        position: relative;
+        color: #111;
+      }
+
+      .close {
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .content-container {
+          padding: 3rem 1.5rem;
+        }
+
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        .tagline {
+          font-size: 1rem;
+        }
+
+        .intro-section,
+        .mission-card,
+        .cta-section {
+          padding: 1.75rem;
+        }
+
+        .cta-button {
+          padding: 1rem 2rem;
+          font-size: 0.95rem;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="main-wrapper">
       <div class="content-container">
         <div class="darkness-hint">
-          <p>We do not stay silent in the dark. We act.</p>
-        </div>
-
-        <div class="cta-row">
-          <a href="/badge-generator.html" class="primary">Create support badge</a>
-          <a href="/resources.html">View posters</a>
+          <p>Not everything operates in the light.</p>
         </div>
 
         <header>
-          <span class="operation-tag">#OPERATIONVADH</span>
-          <h1>Operation Vadh</h1>
-          <div class="tagline">Fight cybercrime. Expose malicious actors. Protect the internet.</div>
+          <div class="operation-tag">#OPERATIONVADH</div>
+          <h1 id="main-title">OPERATION VADH</h1>
+          <p class="tagline" id="tagline">The shadows hide more than you think</p>
         </header>
 
-        <p class="description">
-          Operation Vadh is built for people who want to use their skills, time, and attention to make the internet safer.
-          We combine OSINT, digital investigation, and direct action to bring accountability to online threats and malicious actors.
-        </p>
+        <section class="intro-section">
+          <h2 id="intro-heading">They operate in darkness</h2>
+          <p id="intro-text">Scammers. Fraudsters. Malicious actors. They thrive in the shadows of the internet, believing no one is watching. They prey on the innocent, steal from the vulnerable, and corrupt our digital world.</p>
+          <p>But we see them. And we're calling on everyone with the skills and courage to bring them into the light.</p>
+          <p>If you understand OSINT, cybersecurity, or digital investigation—your knowledge is needed. This January, we hunt those who hide in darkness.</p>
+          <h2>Ab hoga Vadh......</h2>
+          <p>Just like the iconic dialogue from the movie <strong>"Vadh"</strong>, "Humne hatya nahi, vadh kiya hai vadh," our mission is to eliminate digital criminals and bring justice to the online world. Inspired by the story of a common man standing up against wrongdoers, we are committed to making the internet a safer place for everyone.</p>
+        </section>
 
-        <div class="cta-buttons">
-          <a href="/badge-generator.html" class="primary">Generate badge</a>
-          <a href="/resources.html">Explore resources</a>
+        <section class="mission-section">
+          <h2 id="mission-heading">Your Mission</h2>
+          <div class="mission-grid">
+            <div class="mission-card">
+              <div class="mission-number">DIRECTIVE 01</div>
+              <h3>Identify Targets</h3>
+              <p>Use OSINT techniques to discover scam websites, phishing operations, fraudulent platforms, and malicious actors operating in the shadows.</p>
+              <div class="mission-action">Track their digital footprints. Document URLs, hosting details, domain information, and infrastructure. Build comprehensive profiles.</div>
+            </div>
+            <div class="mission-card">
+              <div class="mission-number">DIRECTIVE 02</div>
+              <h3>Gather Evidence</h3>
+              <p>Collect irrefutable proof. Screenshots, archives, metadata, network maps. Build cases that cannot be ignored or dismissed.</p>
+              <div class="mission-action">Use every tool available: WHOIS lookups, reverse searches, archive services, network analysis. Leave no stone unturned.</div>
+            </div>
+            <div class="mission-card">
+              <div class="mission-number">DIRECTIVE 03</div>
+              <h3>Create Awareness</h3>
+              <p>Expose their operations publicly. Create content that educates and warns others. Share using #OperationVadh to build collective knowledge.</p>
+              <div class="mission-action">Write threads, create videos, publish reports. Make it impossible for them to operate unnoticed.</div>
+            </div>
+            <div class="mission-card">
+              <div class="mission-number">DIRECTIVE 04</div>
+              <h3>Report Bad Actors</h3>
+              <p>File official reports with hosting providers, domain registrars, abuse databases, and law enforcement. Turn evidence into action.</p>
+              <div class="mission-action">Contact abuse departments, submit to cybercrime units, alert platform moderators. Make their existence untenable.</div>
+            </div>
+            <div class="mission-card">
+              <div class="mission-number">DIRECTIVE 05</div>
+              <h3>Coordinate Efforts</h3>
+              <p>Share intelligence with others. Verify findings. Amplify important discoveries. We are stronger when we work together.</p>
+              <div class="mission-action">Collaborate on investigations. Support fellow researchers. Build a network of digital defenders.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="cta-section">
+          <h2>Join the Operation</h2>
+          <p id="cta-text">Every scammer exposed is progress. Every malicious site taken down is a victory. Every person protected is justice. You have the skills. You have the knowledge. Now use them.</p>
+          <div class="cta-buttons">
+            <button class="cta-button" id="share-cause-btn">Share the Cause</button>
+            <a href="resources.html" class="cta-button">Download sharables</a>
+            <a href="/badge-generator.html" class="cta-button">Generate support badge</a>
+          </div>
+        </section>
+
+        <div id="shareModal" class="modal" style="display:none;">
+          <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3>Share the Cause</h3>
+            <div style="display:flex; flex-wrap:wrap; justify-content:space-around; margin-top:15px;">
+              <a href="https://facebook.com/sharer/sharer.php?u=https://operation-vadh.github.io/" target="_blank" style="margin:10px; text-align:center; text-decoration:none;">
+                <img src="https://cdn-icons-png.flaticon.com/24/733/733547.png" alt="Facebook" title="Share on Facebook" style="width:40px; height:40px;">
+              </a>
+              <a href="https://twitter.com/intent/tweet?url=https://operation-vadh.github.io/&text=Join%20the%20cause%20to%20hunt%20bad%20actors!" target="_blank" style="margin:10px; text-align:center; text-decoration:none;">
+                <img src="https://cdn-icons-png.flaticon.com/24/733/733579.png" alt="Twitter" title="Share on Twitter" style="width:40px; height:40px;">
+              </a>
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://operation-vadh.github.io/&title=Join%20the%20cause%20to%20hunt%20bad%20actors!" target="_blank" style="margin:10px; text-align:center; text-decoration:none;">
+                <img src="https://cdn-icons-png.flaticon.com/24/145/145807.png" alt="LinkedIn" title="Share on LinkedIn" style="width:40px; height:40px;">
+              </a>
+              <a href="https://telegram.me/share/url?url=https://operation-vadh.github.io/&text=Join%20the%20cause%20to%20hunt%20bad%20actors!" target="_blank" style="margin:10px; text-align:center; text-decoration:none;">
+                <img src="https://cdn-icons-png.flaticon.com/24/2111/2111646.png" alt="Telegram" title="Share on Telegram" style="width:40px; height:40px;">
+              </a>
+              <a href="https://wa.me/?text=Join%20the%20cause%20to%20hunt%20bad%20actors!%20https://operation-vadh.github.io/" target="_blank" style="margin:10px; text-align:center; text-decoration:none;">
+                <img src="https://cdn-icons-png.flaticon.com/24/733/733585.png" alt="WhatsApp" title="Share on WhatsApp" style="width:40px; height:40px;">
+              </a>
+            </div>
+            <div style="margin-top:20px; display:flex; flex-direction:column; align-items:center;">
+              <input type="text" value="https://operation-vadh.github.io/" id="share-url" readonly style="width:80%; padding:8px; border:1px solid #ccc; border-radius:4px;">
+              <button id="copyBtn" style="margin-top:10px; padding:8px 16px; border:none; background:#007bff; color:#fff; border-radius:4px; cursor:pointer;">Copy URL</button>
+            </div>
+          </div>
         </div>
+
+        <footer>
+          <p class="timeline" id="timeline">Every Year // 365 DAYS</p>
+          <p>They hide in darkness. We bring the light. Together, we make the internet safer for everyone who uses it.</p>
+          <p class="signature">OPERATION VADH</p>
+          <p style="margin-top:8px; font-size:0.95rem; color:#181818;">Note: This operation runs through this site which might go offline afterward. Each year, participants are encouraged to continue the movement independently.</p>
+        </footer>
       </div>
     </div>
+
+    <script>
+      document.getElementById('share-cause-btn').onclick = function() {
+        document.getElementById('shareModal').style.display = 'flex';
+      };
+
+      document.getElementById('closeModal').onclick = function() {
+        document.getElementById('shareModal').style.display = 'none';
+      };
+
+      window.onclick = function(event) {
+        const modal = document.getElementById('shareModal');
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      };
+
+      document.getElementById('copyBtn').onclick = function() {
+        const copyText = document.getElementById('share-url');
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value).then(function() {
+          alert('URL copied to clipboard!');
+        }, function() {
+          alert('Failed to copy URL.');
+        });
+      };
+    </script>
   </body>
 </html>
