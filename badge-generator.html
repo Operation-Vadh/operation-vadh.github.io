@@ -316,26 +316,45 @@
       }
 
       function drawQrCode() {
+        const qrX = 688;
+        const qrY = 840;
+        const qrSize = 170;
+
+        roundedRect(qrX - 18, qrY - 18, qrSize + 36, qrSize + 70, 8);
+        ctx.fillStyle = '#121212';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.fillStyle = '#b61a1a';
+        ctx.fillRect(qrX, qrY - 2, qrSize, 4);
+
+        ctx.fillStyle = '#f3eee9';
+        ctx.font = '700 16px "JetBrains Mono", monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText('SCAN TO VERIFY', qrX + 8, qrY - 18);
+
         if (!window.QRious) {
           ctx.fillStyle = '#b61a1a';
-          ctx.fillRect(710, 820, 170, 170);
+          ctx.fillRect(qrX + 18, qrY + 28, qrSize - 36, qrSize - 36);
           ctx.fillStyle = '#f3eee9';
           ctx.font = '700 18px "JetBrains Mono", monospace';
           ctx.textAlign = 'center';
-          ctx.fillText('QR', 795, 915);
+          ctx.fillText('QR', qrX + qrSize / 2, qrY + qrSize / 2 + 6);
           return;
         }
 
         const qr = new QRious({
           value: baseUrl,
-          size: 170,
+          size: qrSize,
           background: '#ffffff',
           foreground: '#0d0d0d'
         });
 
         const img = new Image();
         img.onload = function () {
-          ctx.drawImage(img, 710, 820, 170, 170);
+          ctx.drawImage(img, qrX + 18, qrY + 24, qrSize - 36, qrSize - 36);
         };
         img.src = qr.toDataURL();
       }
@@ -372,7 +391,6 @@
 
         ctx.fillStyle = '#b61a1a';
         ctx.fillRect(52, 60, width - 104, 8);
-        ctx.fillRect(52, height - 128, width - 104, 8);
 
         ctx.textAlign = 'left';
         ctx.fillStyle = '#f3eee9';
@@ -414,21 +432,27 @@
 
         ctx.fillStyle = '#b61a1a';
         ctx.font = '700 18px "JetBrains Mono", monospace';
-        ctx.fillText('VISIT', 90, 960);
+        ctx.fillText('VISIT', 90, 950);
         ctx.fillStyle = '#f3eee9';
-        ctx.fillText('operation-vadh.github.io', 170, 960);
+        ctx.fillText('operation-vadh.github.io', 170, 950);
 
         ctx.fillStyle = '#f3eee9';
         ctx.font = '700 22px "JetBrains Mono", monospace';
         ctx.fillText('FIGHT THE SHADOWS.', 90, 1010);
 
+        ctx.fillStyle = '#b61a1a';
+        ctx.fillRect(52, 1060, width - 104, 2);
+
         drawQrCode();
 
         ctx.fillStyle = '#f3eee9';
-        ctx.font = '700 18px "JetBrains Mono", monospace';
+        ctx.font = '700 16px "JetBrains Mono", monospace';
         ctx.textAlign = 'left';
-        ctx.fillText('SCAN TO VERIFY', 730, 1005);
+        ctx.fillText('SCAN / VERIFY', 95, 1125);
       }
+
+      nameInput.addEventListener('input', renderCertificate);
+      messageInput.addEventListener('input', renderCertificate);
 
       document.getElementById('generateBtn').addEventListener('click', renderCertificate);
 
