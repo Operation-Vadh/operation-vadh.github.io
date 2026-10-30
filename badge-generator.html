@@ -4,22 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Operation Vadh | Certificate Generator</title>
-    <meta name="description" content="Generate polished Operation Vadh support certificates with default or custom content." />
+    <meta name="description" content="Generate a formal Operation Vadh support certificate with shareable default or custom content." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
     <style>
       :root {
-        --bg: #050505;
-        --panel: #111111;
-        --card: rgba(20,20,20,0.96);
-        --text: #f5f1ec;
+        --bg: #040404;
+        --panel: #121212;
+        --panel-alt: #171717;
+        --text: #f5efe7;
         --muted: #d6cabf;
-        --accent: #a51e1e;
-        --accent-2: #c52d2d;
-        --border: rgba(255,255,255,0.12);
-        --shadow: rgba(0,0,0,0.50);
+        --accent: #9b1c1c;
+        --accent-2: #c32626;
+        --soft: rgba(255,255,255,0.08);
+        --soft-2: rgba(255,255,255,0.12);
+        --shadow: rgba(0,0,0,0.6);
       }
 
       * { box-sizing: border-box; }
@@ -27,47 +28,49 @@
       html, body {
         margin: 0;
         min-height: 100%;
-        background: var(--bg);
+        background:
+          radial-gradient(circle at top, rgba(155, 28, 28, 0.12), transparent 30%),
+          linear-gradient(180deg, #030303, #080808 30%, #050505);
         color: var(--text);
         font-family: 'JetBrains Mono', monospace;
       }
 
       body {
+        padding: 24px 18px 52px;
         display: flex;
         justify-content: center;
-        padding: 28px 18px 52px;
       }
 
       .page-shell {
-        width: min(1260px, 100%);
+        width: min(1280px, 100%);
       }
 
       .topbar {
         text-align: center;
-        margin-bottom: 24px;
+        margin-bottom: 18px;
       }
 
       .eyebrow {
         display: inline-block;
-        padding: 8px 14px;
-        border: 1px solid var(--border);
         background: rgba(255,255,255,0.02);
-        letter-spacing: 0.2em;
-        font-size: 0.72rem;
+        border: 1px solid var(--soft-2);
+        padding: 8px 16px;
+        letter-spacing: 0.22em;
+        font-size: 0.7rem;
         text-transform: uppercase;
       }
 
       h1 {
-        margin: 12px 0 8px;
-        font-size: clamp(2rem, 4vw, 3.5rem);
-        letter-spacing: 0.15em;
+        margin: 14px 0 8px;
+        font-size: clamp(2rem, 4vw, 3.6rem);
+        letter-spacing: 0.14em;
         text-transform: uppercase;
       }
 
       .subtitle {
         margin: 0;
         color: var(--muted);
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         letter-spacing: 0.08em;
       }
 
@@ -76,25 +79,30 @@
         justify-content: center;
         gap: 12px;
         flex-wrap: wrap;
-        margin: 22px auto 26px;
+        margin: 20px auto 24px;
       }
 
       .mode-btn {
         appearance: none;
-        border: 1px solid var(--border);
+        border: 1px solid var(--soft-2);
         background: rgba(255,255,255,0.02);
         color: var(--text);
-        padding: 12px 18px;
+        padding: 11px 18px;
         font: inherit;
         font-weight: 700;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         cursor: pointer;
+        transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+      }
+
+      .mode-btn:hover {
+        transform: translateY(-1px);
       }
 
       .mode-btn.active {
         background: linear-gradient(180deg, var(--accent-2), var(--accent));
-        border-color: rgba(255,255,255,0.12);
+        border-color: rgba(255,255,255,0.15);
       }
 
       .generator-layout {
@@ -105,9 +113,9 @@
       }
 
       .panel {
-        background: linear-gradient(180deg, rgba(16,16,16,0.96), rgba(8,8,8,0.97));
-        border: 1px solid var(--border);
-        box-shadow: 0 24px 60px var(--shadow);
+        background: linear-gradient(180deg, rgba(18,18,18,0.96), rgba(8,8,8,0.97));
+        border: 1px solid var(--soft-2);
+        box-shadow: 0 24px 52px var(--shadow);
       }
 
       .form-panel {
@@ -116,7 +124,7 @@
 
       .section-title {
         margin: 0 0 18px;
-        font-size: 1.35rem;
+        font-size: 1.4rem;
         letter-spacing: 0.08em;
         text-transform: uppercase;
       }
@@ -137,22 +145,22 @@
       .field input,
       .field textarea {
         width: 100%;
-        border: 1px solid var(--border);
+        border: 1px solid var(--soft-2);
         background: rgba(255,255,255,0.02);
         color: var(--text);
         padding: 12px 14px;
         font: inherit;
       }
 
-      .field input:focus,
-      .field textarea:focus {
-        outline: 2px solid rgba(165, 30, 30, 0.22);
-        border-color: rgba(255,255,255,0.20);
+      .field textarea {
+        min-height: 112px;
+        resize: vertical;
       }
 
-      .field textarea {
-        min-height: 120px;
-        resize: vertical;
+      .field input:focus,
+      .field textarea:focus {
+        outline: 2px solid rgba(155, 28, 28, 0.22);
+        border-color: rgba(255,255,255,0.18);
       }
 
       .hidden {
@@ -167,7 +175,7 @@
 
       .button {
         appearance: none;
-        border: 1px solid var(--border);
+        border: 1px solid var(--soft-2);
         background: rgba(255,255,255,0.02);
         color: var(--text);
         padding: 12px 18px;
@@ -193,7 +201,7 @@
       .share-btn {
         flex: 1 1 82px;
         min-width: 82px;
-        border: 1px solid var(--border);
+        border: 1px solid var(--soft-2);
         background: rgba(255,255,255,0.02);
         color: var(--text);
         padding: 10px 12px;
@@ -211,17 +219,17 @@
       .preview-shell {
         width: 100%;
         background: rgba(255,255,255,0.02);
-        border: 1px solid var(--border);
+        border: 1px solid var(--soft-2);
         padding: 18px;
       }
 
       canvas {
         display: block;
         width: 100%;
-        max-height: 72vh;
         height: auto;
+        max-height: 72vh;
         background: #000;
-        border: 1px solid rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.05);
       }
 
       .footer-note {
@@ -299,9 +307,9 @@
 
         <section class="panel preview-panel" aria-label="Certificate preview">
           <div class="preview-shell">
-            <canvas id="certificateCanvas" width="1200" height="760" aria-label="Generated certificate preview"></canvas>
+            <canvas id="certificateCanvas" width="1400" height="900" aria-label="Generated certificate preview"></canvas>
           </div>
-          <div class="footer-note">Default URL and QR code appear in both layouts.</div>
+          <div class="footer-note">Formal certificate version • URL and QR included in both layouts.</div>
         </section>
       </main>
     </div>
@@ -340,14 +348,11 @@
 
       function setMode(mode) {
         state.mode = mode;
-
         modeButtons.forEach((button) => {
           button.classList.toggle('active', button.dataset.mode === mode);
         });
-
         defaultPanel.classList.toggle('hidden', mode !== 'default');
         customPanel.classList.toggle('hidden', mode !== 'custom');
-
         renderCertificate();
       }
 
@@ -396,27 +401,57 @@
         ctx.closePath();
       }
 
+      function drawSeal(x, y, size) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.strokeStyle = '#9f1d1d';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(0, 0, size, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(0, 0, size * 0.7, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = '#a51e1e';
+        ctx.beginPath();
+        ctx.moveTo(-size * 0.42, -size * 0.2);
+        ctx.lineTo(0, -size * 0.68);
+        ctx.lineTo(size * 0.42, -size * 0.2);
+        ctx.lineTo(size * 0.28, size * 0.35);
+        ctx.lineTo(-size * 0.28, size * 0.35);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = '#f5efe7';
+        ctx.font = `800 ${size * 0.4}px "JetBrains Mono", monospace`;
+        ctx.textAlign = 'center';
+        ctx.fillText('V', 0, size * 0.12);
+        ctx.restore();
+      }
+
       function drawQrCode() {
         if (!window.QRious) {
           ctx.fillStyle = '#b72424';
-          ctx.fillRect(930, 560, 150, 150);
-          ctx.fillStyle = '#f5f1ec';
-          ctx.font = '700 18px "JetBrains Mono", monospace';
+          ctx.fillRect(1090, 640, 170, 170);
+          ctx.fillStyle = '#f5efe7';
+          ctx.font = '700 22px "JetBrains Mono", monospace';
           ctx.textAlign = 'center';
-          ctx.fillText('QR', 1005, 640);
+          ctx.fillText('QR', 1175, 725);
           return;
         }
 
         const qr = new QRious({
           value: baseUrl,
-          size: 150,
-          background: '#fff',
+          size: 160,
+          background: '#ffffff',
           foreground: '#0d0d0d'
         });
 
         const img = new Image();
         img.onload = function () {
-          ctx.drawImage(img, 940, 550, 150, 150);
+          ctx.drawImage(img, 1090, 645, 170, 170);
         };
         img.src = qr.toDataURL();
       }
@@ -428,102 +463,116 @@
 
         ctx.clearRect(0, 0, width, height);
 
-        const bg = ctx.createRadialGradient(width / 2, height / 2, 80, width / 2, height / 2, width * 0.72);
-        bg.addColorStop(0, '#171717');
-        bg.addColorStop(0.45, '#0f0f0f');
-        bg.addColorStop(1, '#000');
+        const bg = ctx.createRadialGradient(width / 2, height / 2, 80, width / 2, height / 2, width * 0.75);
+        bg.addColorStop(0, '#1a1a1a');
+        bg.addColorStop(0.42, '#110f10');
+        bg.addColorStop(1, '#040404');
         ctx.fillStyle = bg;
         ctx.fillRect(0, 0, width, height);
 
-        for (let x = 0; x < width; x += 54) {
-          ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+        for (let x = 0; x < width; x += 52) {
+          ctx.strokeStyle = 'rgba(255,255,255,0.035)';
           ctx.beginPath();
-          ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, height);
+          ctx.stroke();
         }
 
-        for (let y = 0; y < height; y += 54) {
-          ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+        for (let y = 0; y < height; y += 52) {
+          ctx.strokeStyle = 'rgba(255,255,255,0.035)';
           ctx.beginPath();
-          ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
+          ctx.moveTo(0, y);
+          ctx.lineTo(width, y);
+          ctx.stroke();
         }
 
-        roundedRect(50, 42, width - 100, height - 84, 26);
+        roundedRect(52, 42, width - 104, height - 84, 8);
         ctx.fillStyle = 'rgba(17,17,17,0.96)';
         ctx.fill();
-        ctx.strokeStyle = '#8d1818';
+        ctx.strokeStyle = '#8f1919';
         ctx.lineWidth = 4;
         ctx.stroke();
 
-        ctx.fillStyle = '#b72424';
-        ctx.fillRect(90, 76, width - 180, 4);
+        roundedRect(88, 80, width - 176, height - 160, 6);
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.fillStyle = '#b52424';
+        ctx.fillRect(130, 110, width - 260, 3);
 
         ctx.textAlign = 'center';
-        ctx.fillStyle = '#f5f1ec';
-        ctx.font = '700 26px "JetBrains Mono", monospace';
-        ctx.fillText('#OPERATIONVADH', width / 2, 116);
+        ctx.fillStyle = '#f5efe7';
+        ctx.font = '700 24px "JetBrains Mono", monospace';
+        ctx.fillText('#OPERATIONVADH', width / 2, 122);
 
-        ctx.fillStyle = '#d8d0c8';
+        ctx.fillStyle = '#d9cfc3';
         ctx.font = '600 20px "JetBrains Mono", monospace';
-        ctx.fillText('OFFICIAL SUPPORT CERTIFICATE', width / 2, 156);
+        ctx.fillText('OFFICIAL SUPPORT CERTIFICATE', width / 2, 160);
 
         ctx.strokeStyle = 'rgba(255,255,255,0.12)';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(180, 196);
-        ctx.lineTo(width - 180, 196);
+        ctx.moveTo(220, 190);
+        ctx.lineTo(width - 220, 190);
         ctx.stroke();
 
-        ctx.fillStyle = '#f5f1ec';
-        ctx.font = '500 20px "JetBrains Mono", monospace';
-        ctx.fillText('This certificate is awarded to', width / 2, 246);
-
-        const nameSize = fitTextSize(name, 760, 42, 102, 800);
-        ctx.font = `800 ${nameSize}px "JetBrains Mono", monospace`;
-        const nameLines = wrapText(name, 760);
-        let currentY = 344;
-        nameLines.forEach((line, index) => {
-          ctx.fillText(line, width / 2, currentY + (index * (nameSize + 18)));
-        });
-
-        ctx.fillStyle = '#d7cfc4';
-        ctx.font = '600 24px "JetBrains Mono", monospace';
-        ctx.fillText(handle, width / 2, 463);
-
-        ctx.strokeStyle = 'rgba(185, 34, 34, 0.9)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(220, 500);
-        ctx.lineTo(width - 220, 500);
-        ctx.stroke();
-
-        ctx.fillStyle = '#efe6df';
+        ctx.fillStyle = '#f5efe7';
         ctx.font = '500 22px "JetBrains Mono", monospace';
-        const messageLines = wrapText(message, 800);
-        const messageStartY = 550;
-        messageLines.slice(0, 3).forEach((line, index) => {
-          ctx.fillText(line, width / 2, messageStartY + index * 38);
+        ctx.fillText('This certificate is awarded to', width / 2, 248);
+
+        const nameSize = fitTextSize(name, 760, 44, 104, 800);
+        ctx.font = `800 ${nameSize}px "JetBrains Mono", monospace`;
+        ctx.fillStyle = '#f5efe7';
+        const nameLines = wrapText(name, 760);
+        const startY = 332;
+        nameLines.forEach((line, index) => {
+          ctx.fillText(line, width / 2, startY + index * (nameSize + 16));
         });
 
-        ctx.fillStyle = '#b72424';
-        ctx.font = '700 19px "JetBrains Mono", monospace';
-        ctx.fillText('WE FIGHT CYBER CRIME • WE PROTECT THE INTERNET', width / 2, 660);
+        ctx.fillStyle = '#d0c4b9';
+        ctx.font = '600 26px "JetBrains Mono", monospace';
+        ctx.fillText(handle, width / 2, 472);
 
-        ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+        ctx.strokeStyle = 'rgba(181, 36, 36, 0.95)';
+        ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(150, 690);
-        ctx.lineTo(width - 150, 690);
+        ctx.moveTo(240, 520);
+        ctx.lineTo(width - 240, 520);
         ctx.stroke();
 
-        ctx.fillStyle = '#f5f1ec';
+        const statementBoxX = 220;
+        const statementBoxY = 552;
+        const statementBoxW = width - 440;
+        const statementBoxH = 120;
+        roundedRect(statementBoxX, statementBoxY, statementBoxW, statementBoxH, 14);
+        ctx.fillStyle = 'rgba(255,255,255,0.015)';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.stroke();
+
+        ctx.fillStyle = '#efe5dc';
+        ctx.font = '500 24px "JetBrains Mono", monospace';
+        const statementLines = wrapText(message, 760);
+        statementLines.slice(0, 3).forEach((line, index) => {
+          ctx.fillText(line, width / 2, statementBoxY + 44 + index * 32);
+        });
+
+        ctx.fillStyle = '#b52424';
         ctx.font = '700 18px "JetBrains Mono", monospace';
-        ctx.fillText('operation-vadh.github.io', width / 2, 714);
+        ctx.fillText('WE FIGHT CYBER CRIME • WE PROTECT THE INTERNET', width / 2, 718);
 
-        ctx.fillStyle = '#b72424';
-        ctx.fillRect(100, 620, 160, 58);
-        ctx.fillStyle = '#111111';
-        ctx.font = '800 38px "JetBrains Mono", monospace';
-        ctx.fillText('V', 126, 662);
+        ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+        ctx.beginPath();
+        ctx.moveTo(150, 760);
+        ctx.lineTo(width - 150, 760);
+        ctx.stroke();
 
+        ctx.fillStyle = '#f5efe7';
+        ctx.font = '700 18px "JetBrains Mono", monospace';
+        ctx.fillText('operation-vadh.github.io', width / 2, 796);
+
+        drawSeal(220, 700, 48);
         drawQrCode();
       }
 
