@@ -318,11 +318,11 @@
       function drawQrCode() {
         if (!window.QRious) {
           ctx.fillStyle = '#b61a1a';
-          ctx.fillRect(720, 1050, 180, 180);
+          ctx.fillRect(710, 820, 170, 170);
           ctx.fillStyle = '#f3eee9';
           ctx.font = '700 18px "JetBrains Mono", monospace';
           ctx.textAlign = 'center';
-          ctx.fillText('QR', 810, 1145);
+          ctx.fillText('QR', 795, 915);
           return;
         }
 
@@ -335,7 +335,7 @@
 
         const img = new Image();
         img.onload = function () {
-          ctx.drawImage(img, 730, 1040, 170, 170);
+          ctx.drawImage(img, 710, 820, 170, 170);
         };
         img.src = qr.toDataURL();
       }
@@ -407,9 +407,9 @@
 
         ctx.fillStyle = '#efe4d8';
         ctx.font = '500 30px "JetBrains Mono", monospace';
-        const statementLines = wrapText(message, 760);
+        const statementLines = wrapText(message, 640);
         statementLines.slice(0, 3).forEach((line, index) => {
-          ctx.fillText(line, 90, 720 + index * 40);
+          ctx.fillText(line, 90, 720 + index * 42);
         });
 
         ctx.fillStyle = '#b61a1a';
@@ -420,14 +420,14 @@
 
         ctx.fillStyle = '#f3eee9';
         ctx.font = '700 22px "JetBrains Mono", monospace';
-        ctx.fillText('FIGHT THE SHADOWS.', 90, 1020);
+        ctx.fillText('FIGHT THE SHADOWS.', 90, 1010);
 
         drawQrCode();
 
         ctx.fillStyle = '#f3eee9';
         ctx.font = '700 18px "JetBrains Mono", monospace';
         ctx.textAlign = 'left';
-        ctx.fillText('SCAN TO VERIFY', 760, 1018);
+        ctx.fillText('SCAN TO VERIFY', 730, 1005);
       }
 
       document.getElementById('generateBtn').addEventListener('click', renderCertificate);
