@@ -1,6 +1,178 @@
 <!doctype html>
 <html lang="en">
   <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Operation Vadh - Fight Cyber Crime & Bring Justice</title>
+   <meta name="description" content="Join Operation Vadh to combat cybercrime using OSINT and hacking skills. Inspired by the mission to expose bad actors and make the internet safer for everyone." />
+   <meta name="keywords" content="Operation Vadh, Cyber Crime, OSINT, Digital Investigation, Hackers, Cybersecurity, Justice, Vadh, Cyber Crime Fight, Online Safety, Digital Vigilance" />
+   <script src="/_sdk/element_sdk.js"></script>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+   <style>
+         body {
+             box-sizing: border-box;
+         }
+
+         * {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+         }
+
+         html, body {
+             height: 100%;
+             width: 100%;
+         }
+
+         body {
+             font-family: 'JetBrains Mono', monospace;
+             background: #000000;
+             color: #050505;
+             line-height: 1.7;
+         }
+
+         .main-wrapper {
+             width: 100%;
+             min-height: 100%;
+             background: #000000;
+             overflow: auto;
+         }
+
+         .content-container {
+             max-width: 900px;
+             margin: 0 auto;
+             padding: 4rem 2rem;
+         }
+
+         .darkness-hint {
+             text-align: center;
+             margin-bottom: 4rem;
+             padding: 2rem;
+             border: 2px solid #1a1a1a;
+             background: #000000;
+         }
+
+         .darkness-hint p {
+             font-size: 1.5rem;
+             color: #ffffff;
+             letter-spacing: 0.08em;
+             line-height: 1.9;
+             font-weight: 600;
+             text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+         }
+
+         .cta-row {
+             display: flex;
+             justify-content: center;
+             flex-wrap: wrap;
+             gap: 12px;
+             margin: 1.5rem 0 3rem;
+         }
+
+         .cta-row a {
+             display: inline-block;
+             padding: 12px 18px;
+             border: 1px solid #2a2a2a;
+             background: rgba(255,255,255,0.02);
+             color: #ffffff;
+             text-decoration: none;
+             font-size: 0.7rem;
+             letter-spacing: 0.14em;
+             text-transform: uppercase;
+         }
+
+         .cta-row a.primary {
+             background: #b61a1a;
+             border-color: #d92d2d;
+         }
+
+         header {
+             text-align: center;
+             margin-bottom: 4rem;
+             padding-bottom: 2rem;
+             border-bottom: 1px solid #0a0a0a;
+         }
+
+         .operation-tag {
+             display: inline-block;
+             font-size: 0.9rem;
+             color: #0a0000;
+             letter-spacing: 0.2em;
+             margin-bottom: 1.5rem;
+             padding: 0.5rem 1rem;
+             border: 1px solid #050000;
+             text-shadow: 0 0 1px rgba(10, 0, 0, 0.3);
+         }
+
+         h1 {
+             font-size: 4rem;
+             font-weight: 700;
+             color: #1a1a1a;
+             margin-bottom: 1rem;
+             letter-spacing: 0.15em;
+             text-shadow: 0 0 3px rgba(26, 26, 26, 0.4);
+         }
+
+         .tagline {
+             font-size: 1.2rem;
+             color: #181818;
+             letter-spacing: 0.1em;
+             font-weight: 400;
+         }
+
+         .description {
+             max-width: 700px;
+             margin: 0 auto;
+             font-size: 1rem;
+             color: #ffffff;
+             letter-spacing: 0.04em;
+         }
+
+         .custom-links {
+             margin-top: 1.5rem;
+         }
+
+         .custom-links a {
+             color: #ff6d6d;
+             text-decoration: none;
+         }
+
+         .cta-buttons {
+             display: flex;
+             justify-content: center;
+             gap: 1rem;
+             flex-wrap: wrap;
+             margin-top: 2rem;
+         }
+
+         .cta-buttons a {
+             text-decoration: none;
+             color: #fff;
+             border: 1px solid rgba(255,255,255,0.15);
+             padding: 0.8rem 1.1rem;
+             font-size: 0.75rem;
+             letter-spacing: 0.12em;
+             text-transform: uppercase;
+             background: rgba(255,255,255,0.02);
+         }
+
+         .cta-buttons a.primary {
+             background: #b61a1a;
+             border-color: #d92d2d;
+         }
+
+         @media (max-width: 640px) {
+             h1 {
+                 font-size: 2.5rem;
+             }
+
+             .darkness-hint p {
+                 font-size: 1.1rem;
+             }
+         }
+   </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operation Vadh - Fight Cyber Crime & Bring Justice</title>
@@ -325,6 +497,31 @@
     <div class="main-wrapper">
       <div class="content-container">
         <div class="darkness-hint">
+          <p>We do not stay silent in the dark. We act.</p>
+        </div>
+
+        <div class="cta-row">
+          <a href="/badge-generator.html" class="primary">Create support badge</a>
+          <a href="/resources.html">View posters</a>
+        </div>
+
+        <header>
+          <span class="operation-tag">#OPERATIONVADH</span>
+          <h1>Operation Vadh</h1>
+          <div class="tagline">Fight cybercrime. Expose malicious actors. Protect the internet.</div>
+        </header>
+
+        <p class="description">
+          Operation Vadh is built for people who want to use their skills, time, and attention to make the internet safer.
+          We combine OSINT, digital investigation, and direct action to bring accountability to online threats and malicious actors.
+        </p>
+
+        <div class="cta-buttons">
+          <a href="/badge-generator.html" class="primary">Generate badge</a>
+          <a href="/resources.html">Explore resources</a>
+        </div>
+      </div>
+    </div>
           <p>Not everything operates in the light.</p>
         </div>
 
