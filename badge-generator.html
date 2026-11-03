@@ -9,11 +9,17 @@
 
   <title>Operation Vadh — Your Stand</title>
 
-  <!-- Converts the certificate into a PNG -->
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <!-- PNG export -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"
+    defer
+  ></script>
 
-  <!-- Generates the QR code -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <!-- QR code generation -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"
+    defer
+  ></script>
 
   <style>
     :root {
@@ -64,9 +70,9 @@
       padding: 26px 0 70px;
     }
 
-    /* --------------------------------
-       Site header
-    -------------------------------- */
+    /* ================================
+       Header
+    ================================= */
 
     .site-header {
       display: flex;
@@ -98,7 +104,6 @@
       background: var(--red);
       font-size: 11px;
       font-weight: 900;
-      letter-spacing: 0;
     }
 
     .site-url {
@@ -112,9 +117,9 @@
       color: var(--red);
     }
 
-    /* --------------------------------
+    /* ================================
        Intro
-    -------------------------------- */
+    ================================= */
 
     .intro {
       padding: 64px 0 52px;
@@ -150,9 +155,9 @@
       line-height: 1.6;
     }
 
-    /* --------------------------------
+    /* ================================
        Main workspace
-    -------------------------------- */
+    ================================= */
 
     .workspace {
       display: grid;
@@ -321,9 +326,9 @@
       border-color: var(--red-bright);
     }
 
-    /* --------------------------------
-       Share controls
-    -------------------------------- */
+    /* ================================
+       Sharing controls
+    ================================= */
 
     .share-section {
       margin-top: 32px;
@@ -373,9 +378,9 @@
       border-color: var(--red);
     }
 
-    /* --------------------------------
-       Certificate preview
-    -------------------------------- */
+    /* ================================
+       Preview
+    ================================= */
 
     .preview {
       min-width: 0;
@@ -399,11 +404,14 @@
     }
 
     /*
-      Certificate ratio:
-      4:5
+      Certificate output:
 
-      Final PNG:
-      1080 × 1350 pixels
+      Width: 1080px
+      Height: 1350px
+      Ratio: 4:5
+
+      The certificate itself is fixed-size.
+      The browser preview scales it down visually.
     */
 
     .certificate-viewport {
@@ -442,65 +450,88 @@
       pointer-events: none;
     }
 
+    /*
+      Important:
+
+      This uses three fixed rows:
+
+      1. Header
+      2. Main content
+      3. Footer
+
+      The footer can no longer be pushed below the certificate.
+    */
+
     .certificate-inner {
       position: relative;
       z-index: 1;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) 190px;
       width: 100%;
       height: 100%;
-      padding: 82px 88px 74px 104px;
+      padding: 78px 82px 68px 100px;
     }
+
+    /* ================================
+       Certificate header
+    ================================= */
 
     .certificate-header {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 30px;
-      padding-bottom: 24px;
+      gap: 28px;
+      min-width: 0;
+      padding-bottom: 22px;
       border-bottom: 2px solid var(--line);
     }
 
     .certificate-brand {
       color: var(--white);
       font-family: "Courier New", monospace;
-      font-size: 24px;
+      font-size: 23px;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
     .certificate-label {
-      max-width: 270px;
+      max-width: 250px;
       color: var(--white-muted);
       font-family: "Courier New", monospace;
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.4;
       text-align: right;
       text-transform: uppercase;
     }
 
+    /* ================================
+       Certificate main content
+    ================================= */
+
     .certificate-main {
-      flex: 1;
+      min-width: 0;
       min-height: 0;
-      padding-top: 78px;
+      overflow: hidden;
+      padding-top: 50px;
+      padding-bottom: 22px;
     }
 
     .certificate-kicker {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       color: var(--red);
       font-family: "Courier New", monospace;
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
     .certificate-heading {
-      max-width: 860px;
+      max-width: 820px;
       margin: 0;
       color: var(--white);
-      font-size: 112px;
+      font-size: 92px;
       font-weight: 900;
       letter-spacing: -0.09em;
       line-height: 0.84;
@@ -514,25 +545,25 @@
     .certificate-divider {
       width: 100%;
       height: 3px;
-      margin: 50px 0 42px;
+      margin: 32px 0 28px;
       background: var(--red);
     }
 
     .certificate-small-label {
-      margin: 0 0 16px;
+      margin: 0 0 11px;
       color: var(--white-muted);
       font-family: "Courier New", monospace;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
 
     .certificate-name {
-      max-width: 820px;
+      max-width: 790px;
       margin: 0;
       color: var(--white);
-      font-size: 62px;
+      font-size: 50px;
       font-weight: 800;
       letter-spacing: -0.06em;
       line-height: 0.98;
@@ -540,44 +571,39 @@
     }
 
     .certificate-name-line {
-      width: 235px;
-      height: 5px;
-      margin: 22px 0 44px;
+      width: 190px;
+      height: 4px;
+      margin: 16px 0 27px;
       background: var(--white);
     }
 
     .certificate-statement-label {
-      margin: 0 0 16px;
+      margin: 0 0 11px;
       color: var(--red);
       font-family: "Courier New", monospace;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
 
     .certificate-statement {
-      display: -webkit-box;
-      max-width: 800px;
-      max-height: 170px;
+      max-width: 780px;
       margin: 0;
-      overflow: hidden;
       color: var(--white);
-      font-size: 35px;
+      font-size: 29px;
       font-weight: 700;
-      letter-spacing: -0.035em;
-      line-height: 1.2;
+      letter-spacing: -0.03em;
+      line-height: 1.16;
       overflow-wrap: anywhere;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 4;
     }
 
     .certificate-closing {
-      margin: 38px 0 0;
+      margin: 21px 0 0;
       color: var(--white-muted);
       font-family: "Courier New", monospace;
-      font-size: 17px;
-      line-height: 1.45;
+      font-size: 14px;
+      line-height: 1.4;
       text-transform: uppercase;
     }
 
@@ -586,20 +612,28 @@
       font-weight: 700;
     }
 
-    /*
-      Footer columns:
-      website | QR code | declared date
+    /* ================================
+       Certificate footer
+    ================================= */
 
-      The separate columns prevent overlap.
+    /*
+      The footer has three explicit columns:
+
+      Website | QR code | Declared date
+
+      The QR column is fixed at 164px.
+      The website and date cannot overlap it.
     */
 
     .certificate-footer {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 178px minmax(0, 1fr);
-      gap: 24px;
+      grid-template-columns: minmax(0, 1fr) 164px minmax(0, 1fr);
+      gap: 22px;
       align-items: end;
-      min-height: 190px;
-      padding-top: 28px;
+      min-width: 0;
+      min-height: 0;
+      height: 190px;
+      padding-top: 19px;
       border-top: 2px solid var(--line);
     }
 
@@ -612,18 +646,19 @@
     }
 
     .footer-label {
-      margin-bottom: 12px;
+      margin-bottom: 9px;
       color: var(--white-muted);
       font-family: "Courier New", monospace;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.08em;
+      line-height: 1.2;
       text-transform: uppercase;
     }
 
     .footer-value {
       color: var(--white);
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
       line-height: 1.25;
       overflow-wrap: anywhere;
@@ -631,11 +666,11 @@
 
     .footer-website {
       display: inline-block;
-      max-width: 230px;
-      margin-top: 10px;
+      max-width: 220px;
+      margin-top: 7px;
       color: var(--red);
       font-family: "Courier New", monospace;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       line-height: 1.35;
       text-decoration: none;
@@ -651,31 +686,43 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
+      min-width: 0;
     }
 
     .qr-box {
-      width: 158px;
-      height: 158px;
+      width: 142px;
+      height: 142px;
       display: grid;
       place-items: center;
-      padding: 9px;
+      padding: 8px;
       background: var(--white);
     }
 
     .qr-box img,
     .qr-box canvas {
       display: block;
-      width: 140px !important;
-      height: 140px !important;
+      width: 126px !important;
+      height: 126px !important;
+    }
+
+    .qr-fallback {
+      color: var(--black);
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.3;
+      text-align: center;
+      text-transform: uppercase;
     }
 
     .qr-label {
-      margin-top: 10px;
+      margin-top: 7px;
       color: var(--white-muted);
       font-family: "Courier New", monospace;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.08em;
+      line-height: 1.2;
       text-align: center;
       text-transform: uppercase;
     }
@@ -690,9 +737,9 @@
       text-transform: uppercase;
     }
 
-    /* --------------------------------
-       End navigation buttons
-    -------------------------------- */
+    /* ================================
+       Bottom navigation
+    ================================= */
 
     .end-links {
       display: flex;
@@ -732,9 +779,9 @@
       border-color: var(--red);
     }
 
-    /* --------------------------------
-       Toast
-    -------------------------------- */
+    /* ================================
+       Toast message
+    ================================= */
 
     .toast {
       position: fixed;
@@ -762,9 +809,9 @@
       opacity: 1;
     }
 
-    /* --------------------------------
-       Responsive styles
-    -------------------------------- */
+    /* ================================
+       Responsive layout
+    ================================= */
 
     @media (max-width: 900px) {
       .workspace {
@@ -821,7 +868,9 @@
 <body>
   <div class="page">
 
-    <!-- Header -->
+    <!-- ================================
+         Site header
+    ================================= -->
 
     <header class="site-header">
       <div class="brand">
@@ -832,31 +881,35 @@
       <a
         class="site-url"
         href="https://operation-vadh.github.io"
-        target="_blank"
-        rel="noopener"
       >
         operation-vadh.github.io
       </a>
     </header>
 
-    <!-- Intro -->
+    <!-- ================================
+         Intro
+    ================================= -->
 
     <section class="intro">
-      <div class="intro-label">Make your position visible</div>
+      <div class="intro-label">
+        Make your position visible
+      </div>
 
       <h1>
-        WHERE DO<br>
+        WHERE DO<br />
         YOU STAND?
       </h1>
 
       <p class="intro-copy">
         Choose the words that feel closest to you.
-        Make them yours. Then give someone else a reason to ask
-        where they stand.
+        Make them yours. Then give someone else a reason
+        to ask where they stand.
       </p>
     </section>
 
-    <!-- Main content -->
+    <!-- ================================
+         Main workspace
+    ================================= -->
 
     <main class="workspace">
 
@@ -905,7 +958,8 @@
               type="button"
               data-statement="I support the people making digital spaces safer, even when the work goes unseen."
             >
-              I support the people making digital spaces safer, even when the work goes unseen.
+              I support the people making digital spaces safer,
+              even when the work goes unseen.
             </button>
 
             <button
@@ -913,7 +967,8 @@
               type="button"
               data-statement="I stand with those who refuse to look away when others are at risk."
             >
-              I stand with those who refuse to look away when others are at risk.
+              I stand with those who refuse to look away
+              when others are at risk.
             </button>
 
             <button
@@ -921,7 +976,8 @@
               type="button"
               data-statement="I use my skills to help prevent, expose, report, and respond to digital wrongdoing."
             >
-              I use my skills to help prevent, expose, report, and respond to digital wrongdoing.
+              I use my skills to help prevent, expose, report,
+              and respond to digital wrongdoing.
             </button>
 
             <button
@@ -929,7 +985,8 @@
               type="button"
               data-statement="I believe safer digital spaces are everyone's responsibility, not someone else's problem."
             >
-              I believe safer digital spaces are everyone's responsibility, not someone else's problem.
+              I believe safer digital spaces are everyone's
+              responsibility, not someone else's problem.
             </button>
 
             <button
@@ -937,7 +994,8 @@
               type="button"
               data-statement="I am turning awareness into action, because silence should not be the default."
             >
-              I am turning awareness into action, because silence should not be the default.
+              I am turning awareness into action,
+              because silence should not be the default.
             </button>
 
           </div>
@@ -957,11 +1015,11 @@
 
           <textarea
             id="statement"
-            maxlength="190"
+            maxlength="170"
           >I support the people making digital spaces safer, even when the work goes unseen.</textarea>
 
           <div class="character-count">
-            <span id="characterCount">0</span>/190
+            <span id="characterCount">0</span>/170
           </div>
         </div>
 
@@ -993,7 +1051,6 @@
           </p>
 
           <div class="share-actions">
-
             <button
               class="share-button"
               id="shareWebsiteButton"
@@ -1009,12 +1066,11 @@
             >
               Copy caption
             </button>
-
           </div>
         </div>
       </section>
 
-      <!-- Preview -->
+      <!-- Certificate preview -->
 
       <section class="preview">
         <div class="preview-heading">
@@ -1048,7 +1104,7 @@
                 </div>
 
                 <h2 class="certificate-heading">
-                  WHERE DO<br>
+                  WHERE DO<br />
                   <span>YOU STAND?</span>
                 </h2>
 
@@ -1080,12 +1136,12 @@
                 </p>
 
                 <p class="certificate-closing">
-                  Some people scroll past.<br>
+                  Some people scroll past.<br />
                   <strong>Others take a stand.</strong>
                 </p>
               </main>
 
-              <!-- Footer with separate website, QR, and date columns -->
+              <!-- The footer always stays inside the certificate -->
 
               <footer class="certificate-footer">
 
@@ -1097,8 +1153,6 @@
                   <a
                     class="footer-website"
                     href="https://operation-vadh.github.io"
-                    target="_blank"
-                    rel="noopener"
                   >
                     operation-vadh.github.io
                   </a>
@@ -1134,29 +1188,34 @@
         </div>
 
         <p class="preview-note">
-          Download the image. Share the website. Let someone else choose.
+          Download the image. Share the website.
+          Let someone else choose.
         </p>
       </section>
 
     </main>
 
-    <nav
-  class="end-links"
-  aria-label="Additional page links"
->
-  <a
-    class="end-link"
-    href="https://operation-vadh.github.io"
-  >
-    Back to homepage
-  </a>
+    <!-- These are normal navigation links, not share buttons -->
 
-  <a
-    class="end-link"
-    href="https://operation-vadh.github.io/resources.html"
-  >
-    Resources
-  </a>
+    <nav
+      class="end-links"
+      aria-label="Additional page links"
+    >
+      <a
+        class="end-link"
+        href="https://operations-vadh.github.io"
+      >
+        Back to homepage
+      </a>
+
+      <a
+        class="end-link"
+        href="https://operation-vadh.github.io/resources.html"
+      >
+        Resources
+      </a>
+    </nav>
+
   </div>
 
   <div
@@ -1168,18 +1227,20 @@
 
   <script>
     /*
-      These URLs are intentionally different because they were provided
-      differently in the request.
+      These URLs are intentionally kept separate.
+
+      Homepage:
+      https://operations-vadh.github.io
+
+      Resources:
+      https://operation-vadh.github.io/resources.html
+
+      Main website and QR destination:
+      https://operation-vadh.github.io
     */
 
     const MAIN_WEBSITE_URL =
       "https://operation-vadh.github.io";
-
-    const HOMEPAGE_URL =
-      "https://operation-vadh.github.io";
-
-    const RESOURCES_URL =
-      "https://operation-vadh.github.io/resources.html";
 
     const certificate =
       document.getElementById("certificate");
@@ -1235,28 +1296,128 @@
         statementInput.value.length;
     }
 
-    function updateStand() {
-      certificateName.textContent = getName();
-      certificateStatement.textContent = getStatement();
-
-      /*
-        This always uses today's date.
-        It does not require a date input.
-      */
-      certificateDate.textContent = getTodayText();
-
-      updateCharacterCount();
-    }
-
     function showToast(message) {
       toast.textContent = message;
       toast.classList.add("show");
 
-      clearTimeout(showToast.timeout);
+      clearTimeout(showToast.timer);
 
-      showToast.timeout = setTimeout(() => {
+      showToast.timer = setTimeout(() => {
         toast.classList.remove("show");
       }, 2600);
+    }
+
+    function updateStand() {
+      certificateName.textContent = getName();
+      certificateStatement.textContent = getStatement();
+      certificateDate.textContent = getTodayText();
+
+      updateCharacterCount();
+
+      /*
+        Wait for the browser to insert the new text
+        before measuring the certificate.
+      */
+      requestAnimationFrame(() => {
+        fitCertificateContents();
+      });
+    }
+
+    /*
+      Automatically reduces content sizes when the name
+      or statement is long.
+
+      The footer is not resized or pushed out.
+      The main content fits inside the space above it.
+    */
+
+    function fitCertificateContents() {
+      const main =
+        document.querySelector(".certificate-main");
+
+      const heading =
+        document.querySelector(".certificate-heading");
+
+      const name =
+        document.querySelector(".certificate-name");
+
+      const statement =
+        document.querySelector(".certificate-statement");
+
+      if (!main || !heading || !name || !statement) {
+        return;
+      }
+
+      /*
+        Reset to normal sizes before measuring.
+      */
+
+      heading.style.fontSize = "92px";
+      name.style.fontSize = "50px";
+      statement.style.fontSize = "29px";
+
+      main.style.paddingTop = "50px";
+      main.style.paddingBottom = "22px";
+
+      /*
+        Reduce the statement first.
+      */
+
+      let statementSize = 29;
+
+      while (
+        main.scrollHeight > main.clientHeight &&
+        statementSize > 18
+      ) {
+        statementSize -= 1;
+        statement.style.fontSize =
+          `${statementSize}px`;
+      }
+
+      /*
+        Reduce the name next.
+      */
+
+      let nameSize = 50;
+
+      while (
+        main.scrollHeight > main.clientHeight &&
+        nameSize > 30
+      ) {
+        nameSize -= 1;
+        name.style.fontSize =
+          `${nameSize}px`;
+      }
+
+      /*
+        Reduce the heading only if necessary.
+      */
+
+      let headingSize = 92;
+
+      while (
+        main.scrollHeight > main.clientHeight &&
+        headingSize > 70
+      ) {
+        headingSize -= 1;
+        heading.style.fontSize =
+          `${headingSize}px`;
+      }
+
+      /*
+        Reduce the top spacing as a final adjustment.
+      */
+
+      let topPadding = 50;
+
+      while (
+        main.scrollHeight > main.clientHeight &&
+        topPadding > 24
+      ) {
+        topPadding -= 2;
+        main.style.paddingTop =
+          `${topPadding}px`;
+      }
     }
 
     function scalePreview() {
@@ -1270,18 +1431,36 @@
         `scale(${scale})`;
     }
 
+    /*
+      QR code creation.
+
+      The QR code points to the main website:
+      https://operation-vadh.github.io
+    */
+
+    let qrAttempts = 0;
+
     function createQRCode() {
       qrBox.innerHTML = "";
 
       if (typeof QRCode === "undefined") {
-        qrBox.textContent = "QR";
+        qrAttempts += 1;
+
+        if (qrAttempts <= 20) {
+          setTimeout(createQRCode, 250);
+          return;
+        }
+
+        qrBox.innerHTML =
+          '<div class="qr-fallback">QR<br />unavailable</div>';
+
         return;
       }
 
       new QRCode(qrBox, {
         text: MAIN_WEBSITE_URL,
-        width: 140,
-        height: 140,
+        width: 126,
+        height: 126,
         colorDark: "#080808",
         colorLight: "#f1f0eb",
         correctLevel: QRCode.CorrectLevel.H
@@ -1304,12 +1483,20 @@
       const caption = buildCaption();
 
       try {
-        await navigator.clipboard.writeText(caption);
-        showToast("Caption copied.");
+        if (
+          navigator.clipboard &&
+          navigator.clipboard.writeText
+        ) {
+          await navigator.clipboard.writeText(caption);
+          showToast("Caption copied.");
+          return;
+        }
+
+        window.prompt(
+          "Copy this caption:",
+          caption
+        );
       } catch (error) {
-        /*
-          Fallback for browsers that do not allow clipboard access.
-        */
         window.prompt(
           "Copy this caption:",
           caption
@@ -1327,58 +1514,37 @@
 
       try {
         /*
-          The PNG is intentionally not included.
-          This button shares only the main website.
+          This shares only the main website.
+          The PNG is not included.
         */
+
         if (navigator.share) {
           await navigator.share(shareData);
           showToast("Website link shared.");
           return;
         }
 
-        await navigator.clipboard.writeText(
+        if (
+          navigator.clipboard &&
+          navigator.clipboard.writeText
+        ) {
+          await navigator.clipboard.writeText(
+            MAIN_WEBSITE_URL
+          );
+
+          showToast("Website link copied.");
+          return;
+        }
+
+        window.prompt(
+          "Copy this website link:",
           MAIN_WEBSITE_URL
         );
-
-        showToast("Website link copied.");
       } catch (error) {
         if (error.name !== "AbortError") {
           window.prompt(
             "Copy this website link:",
             MAIN_WEBSITE_URL
-          );
-        }
-      }
-    }
-
-    async function shareResourcesPage() {
-      const shareData = {
-        title: "Operation Vadh resources",
-        text: "Explore the Operation Vadh resources.",
-        url: RESOURCES_URL
-      };
-
-      try {
-        /*
-          This shares or copies only:
-          https://operation-vadh.github.io/resources.html
-        */
-        if (navigator.share) {
-          await navigator.share(shareData);
-          showToast("Resources page shared.");
-          return;
-        }
-
-        await navigator.clipboard.writeText(
-          RESOURCES_URL
-        );
-
-        showToast("Resources page link copied.");
-      } catch (error) {
-        if (error.name !== "AbortError") {
-          window.prompt(
-            "Copy this resources page link:",
-            RESOURCES_URL
           );
         }
       }
@@ -1392,19 +1558,25 @@
 
       updateStand();
 
+      /*
+        Wait for text fitting to finish.
+      */
+
+      await new Promise((resolve) => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(resolve);
+        });
+      });
+
       const previousTransform =
         certificate.style.transform;
 
       /*
-        The preview is scaled down in the browser.
-        Remove that scale during export so the downloaded file
-        remains exactly 1080 × 1350 pixels.
+        Remove browser preview scaling.
+        Export the actual 1080 × 1350 certificate.
       */
-      certificate.style.transform = "none";
 
-      await new Promise((resolve) => {
-        requestAnimationFrame(resolve);
-      });
+      certificate.style.transform = "none";
 
       try {
         const exportedCanvas =
@@ -1440,17 +1612,22 @@
         );
       } catch (error) {
         console.error(error);
+
         showToast(
           "The image could not be exported."
         );
       } finally {
         certificate.style.transform =
           previousTransform;
+
+        requestAnimationFrame(() => {
+          scalePreview();
+        });
       }
     }
 
     /*
-      Statement selection
+      Statement option buttons
     */
 
     document
@@ -1473,7 +1650,7 @@
       });
 
     /*
-      Live editing
+      Live input updates
     */
 
     nameInput.addEventListener(
@@ -1499,7 +1676,7 @@
     );
 
     /*
-      Main actions
+      Main buttons
     */
 
     document
@@ -1532,20 +1709,16 @@
         copyCaption
       );
 
-    document
-      .getElementById("shareResourcesButton")
-      .addEventListener(
-        "click",
-        shareResourcesPage
-      );
-
     /*
-      Keep the preview responsive
+      Responsive preview updates
     */
 
     window.addEventListener(
       "resize",
-      scalePreview
+      () => {
+        scalePreview();
+        fitCertificateContents();
+      }
     );
 
     /*
@@ -1555,8 +1728,16 @@
     updateStand();
     createQRCode();
 
+    window.addEventListener("load", () => {
+      updateStand();
+      createQRCode();
+      scalePreview();
+      fitCertificateContents();
+    });
+
     requestAnimationFrame(() => {
       scalePreview();
+      fitCertificateContents();
     });
   </script>
 </body>
